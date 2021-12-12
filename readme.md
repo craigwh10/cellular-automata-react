@@ -45,19 +45,19 @@ From <https://conwaylife.com/wiki/Beacon>.
 ```tsx
 <AutomataGrid
     pixelsActive={[
-    [0,0], [0,1],
-    [1,0], [1,1],
-    [2,2], [2,3],
-    [3,2], [3,3]
+        [0,0], [0,1],
+        [1,0], [1,1],
+        [2,2], [2,3],
+        [3,2], [3,3]
     ]}
     iterationTimeInMs={1000}
     size={4}
     rules={(pixel, pixels, size, setPixelsActive, removeActivePixel) => {
         // All the neighbors, so we can generate nearby.
         const movementCombinations: Array<[number, number]> = [
-        [-1,   1], [0,   1], [1, 1],
-        [-1,   0], /*X0Y0 */ [1, 0],
-        [-1,  -1], [0,  -1], [1, -1]
+            [-1,   1], [0,   1], [1, 1],
+            [-1,   0], /*X0Y0 */ [1, 0],
+            [-1,  -1], [0,  -1], [1, -1]
         ];
     
         const isValidPixel = (pixel: undefined | Pixel) => typeof pixel !== 'undefined';    
@@ -72,7 +72,7 @@ From <https://conwaylife.com/wiki/Beacon>.
             const newPosition: Pixel = [pixelToCheck[0] + movements[0], pixelToCheck[1] + movements[1]];
     
             if (!newPosition.some(coordinate => coordinate > size)) {
-            return newPosition;
+                return newPosition;
             }
         }).filter(isValidPixel) as Array<Pixel>; 
         // To get rid of typescript bug not inferring properly.
@@ -125,12 +125,12 @@ From <https://conwaylife.com/wiki/Beacon>.
     
         // Any live cell with two or three live neighbours survives.
         if (aliveNeighbors === 3 || aliveNeighbors === 2) {
-        return;
+            return;
         }
     
         // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
         else {
-        removeActivePixel(pixel);
+            removeActivePixel(pixel);
         }
     }}
 />
