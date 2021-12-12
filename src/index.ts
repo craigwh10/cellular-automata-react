@@ -1,0 +1,1 @@
+export {AutomataGrid} from './modules/AutomataGrid';

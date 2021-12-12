@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {AutomataGrid} from 'cellular-automata-react/lib/cjs';
+import {AutomataGrid} from 'cellular-automata-react';
 
 type Pixel = [number, number];
 
@@ -9,15 +9,21 @@ function App() {
     <div className="App">
       <header className="App-header">
         <AutomataGrid
-          pixelsActive={[[1,1]]}
+          pixelsActive={[
+            [0,0], [0,1],
+            [1,0], [1,1],
+            [2,2], [2,3],
+            [3,2], [3,3]
+            
+          ]}
           iterationTimeInMs={1000}
           size={4}
           rules={(pixel, pixels, size, setPixelsActive, removeActivePixel) => {
               // All the neighbors, so we can generate nearby.
               const movementCombinations: Array<[number, number]> = [
-                [-1,   0], [0,  -1], [0, 1],
+                [-1,   1], [0,   1], [1, 1],
                 [-1,   0], /*X0Y0 */ [1, 0],
-                [-1,  -1], [0,   1], [1, 1]
+                [-1,  -1], [0,  -1], [1, -1]
                 ];
           
               const isValidPixel = (pixel: undefined | Pixel) => typeof pixel !== 'undefined';    
@@ -45,14 +51,13 @@ function App() {
           
                 return pixelsNearbyArray.filter((pixel) => {
                   if (!pixel) return;
-                  return pixels.includes(pixel);
+                  return JSON.stringify(pixels).includes(JSON.stringify(pixel));
                 })
               }
           
               // Return alive neighbors for current pixel being checked in callback.
               const aliveNeighborPixels = nearbyAlivePixelsInState(pixel);
               const aliveNeighbors = aliveNeighborPixels.length;
-          
           
               /**
                * DEAD CELL ACTION: 
@@ -65,7 +70,7 @@ function App() {
           
                 // Get an array of the coordinates of the dead pixels around an alive pixel.
                 const deadNeighbors = pixelsNearbyArray.filter((pixel) => {
-                    return !pixels.includes(pixel);
+                    return !JSON.stringify(pixels).includes(JSON.stringify(pixel));
                 });
           
                 // From these dead pixels from neighborhood, return back the ones that have
@@ -74,9 +79,10 @@ function App() {
                     return nearbyAlivePixelsInState(deadPixel).length === 3;
                 })
           
-                if (deadPixelsWith3AliveNeighbors.length) return;
+                if (deadPixelsWith3AliveNeighbors.length) {
+                  setPixelsActive(deadPixelsWith3AliveNeighbors);
+                }
           
-                setPixelsActive(deadPixelsWith3AliveNeighbors);
               }
           
               /**
@@ -84,7 +90,7 @@ function App() {
                */
           
               // Any live cell with two or three live neighbours survives.
-              if (aliveNeighbors === 3) {
+              if (aliveNeighbors === 3 || aliveNeighbors === 2) {
                 return;
               }
           

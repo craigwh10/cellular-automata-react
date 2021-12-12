@@ -1,4 +1,3 @@
-import React from 'react';
 import {Pixel} from './Pixel';
 
 interface GridRowProps {
@@ -8,7 +7,7 @@ interface GridRowProps {
   }
   
   
-export const GridRow = ({size, yValue, key}: GridRowProps) => {
+export function GridRow ({size, yValue, key}: GridRowProps) {
     return (
         <div className="grid-row" key={key}>
             {

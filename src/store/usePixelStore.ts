@@ -2,7 +2,7 @@ import create from 'zustand'
 
 export type Pixel = [number, number];
 
-interface PixelStore {
+type PixelStore = {
     pixelsActive: Array<Pixel>
     pixelIsActive: (x: number, y: number) => boolean
     setPixelsActive: (pixelsActive: Array<Pixel>) => void
@@ -22,7 +22,7 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
       const pixels = get().pixelsActive;
       return pixels.some((pixel) => JSON.stringify(pixel) === `[${x},${y}]`);
     },
-    setPixelsActive: (pixelsActive) => set(state => ({ pixelsActive: {...state.pixelsActive, ...pixelsActive} })),
+    setPixelsActive: (pixelsActive) => set(state => ({ pixelsActive: [...state.pixelsActive, ...pixelsActive] })),
     removeActivePixel: (pixel) => set(state => ({pixelsActive: state.pixelsActive.filter((pixelFromActive) => {
       return JSON.stringify(pixelFromActive) !== JSON.stringify(pixel);
     })})),

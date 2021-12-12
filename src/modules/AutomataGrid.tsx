@@ -1,7 +1,6 @@
-import React from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import {Grid} from '../components/Grid';
-import { Pixel } from '../store/usePixelStore';
-
+import { Pixel, usePixelStore } from '../store/usePixelStore';
 
 interface AutomataGridProps {
     rules: (
@@ -16,19 +15,26 @@ interface AutomataGridProps {
 }
 
 export function AutomataGrid ({rules, pixelsActive, size, iterationTimeInMs}: AutomataGridProps) {
-    // const setPixelsActive = usePixelStore(state => state.setPixelsActive);
-    // const checkRulesForActive = usePixelStore(state => state.checkRulesForActive);
+    const setPixelsActive = usePixelStore(state => state.setPixelsActive);
+    const checkRulesForActive = usePixelStore(state => state.checkRulesForActive);
+    const [iterations, setIterations] = useState(0);
     // const {setPixelsActive, checkRulesForActive} = usePixelStore()
+    useEffect(() => {
+        setPixelsActive(pixelsActive);
+    }, [])
 
-    console.log(rules, pixelsActive);
-//   useEffect(() => {
-//     setPixelsActive(pixelsActive);
+    useLayoutEffect(() => {
+        let timer: any;
+        
+        setTimeout(() => {
+            timer = setInterval(() => {
+                checkRulesForActive(rules, size);
+                setIterations((prev) => prev + 1);
+            }, iterationTimeInMs);
+        }, iterationTimeInMs)
 
-//     const timer = setInterval(() => {
-//         checkRulesForActive(rules, size);
-//     }, iterationTimeInMs);
-//       return () => clearInterval(timer);
-//   }, [])
+        return () => clearInterval(timer);
+    }, [])
 
   if (size <= 0) {
     return <p>Provide a size greater than 0.</p>
@@ -39,6 +45,9 @@ export function AutomataGrid ({rules, pixelsActive, size, iterationTimeInMs}: Au
   }
 
   return (
-      <Grid size={size} />
+      <>
+        <p>{iterations}</p>
+        <Grid size={size} />
+      </>
   )
 }
