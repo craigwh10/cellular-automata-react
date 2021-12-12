@@ -2,7 +2,7 @@
 
 Example: Beacon
 
-From (https://conwaylife.com/wiki/Beacon)[https://conwaylife.com/wiki/Beacon].
+From <https://conwaylife.com/wiki/Beacon>.
 
 ```tsx
         <AutomataGrid
