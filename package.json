@@ -18,6 +18,10 @@
     "life"
   ],
   "author": "Craig White",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/craigwh10/cellular-automata-react"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^17.0.37",
