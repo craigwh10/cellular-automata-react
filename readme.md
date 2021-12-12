@@ -28,8 +28,7 @@ type RuleCallback = (
     setPixelsActive: (pixelsActive: Array<Pixel>) => void,
     // Removing a pixel from state by passing in the coordinate.
     removeActivePixel: (pixel: Pixel) => void
-    ) => void,
-}
+) => void;
 ```
 
 You use this callback as a prop within `<AutomataGrid />`.
@@ -144,3 +143,8 @@ From <https://conwaylife.com/wiki/Beacon>.
 ---
 
 https://www.npmjs.com/package/cellular-automata-react
+
+## Planned
+
+- Customisable theme for grid.
+- Customisable pixels.
