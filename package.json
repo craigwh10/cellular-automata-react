@@ -1,0 +1,36 @@
+{
+  "name": "cellular-automata-react",
+  "version": "1.0.0",
+  "description": "Cellular automata react component with customisable rules.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "build:esm": "tsc"
+  },
+  "keywords": [
+    "cellular",
+    "automata",
+    "react",
+    "conways",
+    "game",
+    "of",
+    "life"
+  ],
+  "author": "Craig White",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.5.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "files": [
+    "/lib"
+ ]
+}
