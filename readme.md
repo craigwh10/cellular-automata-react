@@ -54,7 +54,9 @@ function App() {
 
               const pixelsNearbyArray = pixelsNearby(pixel, size);
               if (pixelsNearbyArray.length) {
-                  const randomPixel = pixelsNearbyArray[Math.floor(Math.random() * pixelsNearbyArray.length)];
+                  const randomPixel = pixelsNearbyArray[
+                      Math.floor(Math.random() * pixelsNearbyArray.length)
+                      ];
                   setPixelsActive(randomPixel);
               }
           }}
@@ -104,7 +106,6 @@ function App() {
             [1,0], [1,1],
             [2,2], [2,3],
             [3,2], [3,3]
-            
           ]}
           iterationTimeInMs={1000}
           size={4}
