@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import {Grid} from '../components/Grid';
 import { Pixel, usePixelStore } from '../store/usePixelStore';
 
@@ -17,13 +17,19 @@ interface AutomataGridProps {
         ) => void,
     pixelsActive: Array<[number, number]>
     size: number,
-    iterationTimeInMs: number
+    iterationTimeInMs: number,
+    className?: string,
 }
 
-export function AutomataGrid ({rules, pixelsActive, size, iterationTimeInMs}: AutomataGridProps) {
+export function AutomataGrid ({
+    rules,
+    pixelsActive,
+    size,
+    iterationTimeInMs,
+    className,
+}: AutomataGridProps) {
     const setPixelsActive = usePixelStore(state => state.setPixelsActive);
     const checkRulesForActive = usePixelStore(state => state.checkRulesForActive);
-    const [iterations, setIterations] = useState(0);
 
     useEffect(() => {
         setPixelsActive(pixelsActive);
@@ -35,7 +41,6 @@ export function AutomataGrid ({rules, pixelsActive, size, iterationTimeInMs}: Au
         setTimeout(() => {
             timer = setInterval(() => {
                 checkRulesForActive(rules, size);
-                setIterations((prev) => prev + 1);
             }, iterationTimeInMs);
         }, iterationTimeInMs)
 
@@ -50,10 +55,6 @@ export function AutomataGrid ({rules, pixelsActive, size, iterationTimeInMs}: Au
     return <p>Do you want your browser to crash? - try set iteration time higher</p>
   }
 
-  return (
-      <>
-        <p>{iterations}</p>
-        <Grid size={size} />
-      </>
-  )
-}
+  return <Grid size={size} className={className} />;
+
+};

@@ -3,19 +3,18 @@ import {Pixel} from './Pixel';
 interface GridRowProps {
     size: number
     yValue: number
-    key: string
   }
   
   
-export function GridRow ({size, yValue, key}: GridRowProps) {
+export function GridRow ({size, yValue}: GridRowProps) {
     return (
-        <div className="grid-row" key={key}>
+        <div className="grid-row">
             {
                 [...Array(size)].map((_, xValue) => (
                 <Pixel 
                     yValue={yValue} 
                     xValue={xValue}
-                    key={`${key}-${size}-${xValue}-${yValue}`} 
+                    key={`${size}-${xValue}-${yValue}`} 
                 />
                 ))
             }

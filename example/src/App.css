@@ -2,16 +2,6 @@
   text-align: center;
 }
 
-.grid-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.grid-row {
-  flex-direction: row;
-  display: flex;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -35,6 +35,12 @@ You use this callback as a prop within `<AutomataGrid />`.
 
 Then use the data params to apply the setters to either kill or create more pixels.
 
+## Setting styles 
+
+In 1.0.8 you can now pass down a `className`, it adds the className to the grid wrapper, so you can style from parent downwards.
+
+1.0.9 will introduce custom pixels and switching off the default styling via props.
+
 ## Example: Conway's game of life - Beacon
 
 Example: Beacon
@@ -146,5 +152,5 @@ https://www.npmjs.com/package/cellular-automata-react
 
 ## Planned
 
-- Customisable theme for grid.
-- Customisable pixels.
+[x] Customisable theme for grid. (1.0.8)
+[ ] Customisable pixels. (1.0.9)
