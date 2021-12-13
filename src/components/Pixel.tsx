@@ -9,10 +9,16 @@ interface PixelProps {
 
 export function Pixel ({xValue, yValue}: PixelProps) {
   const isAlive = usePixelStore(state => state.pixelIsActive(xValue, yValue));
+  const pixelStyles = usePixelStore(state => state.pixelStyles);
 
   const className = cn('grid-element', {'grid-element-alive': isAlive});
 
-  return (
-    <div className={className}>{`${isAlive ? '⚪': '⚫'}`}</div>
-  )
-}
+  const {activeColor, inactiveColor} = pixelStyles;
+
+    return <div className={className} style={
+        {
+            backgroundColor: isAlive ? activeColor : inactiveColor, 
+            ...pixelStyles
+        }
+    } />
+};

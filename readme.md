@@ -10,6 +10,7 @@ This package provides an `<AutomataGrid />` component from which you can:
 - Set how fast the iterations happen.
 - Set the size of the grid.
 - Set the rules of how the pixels will behave.
+- Set the style of the pixels or grid within.
 
 ## Setting rules
 
@@ -39,7 +40,20 @@ Then use the data params to apply the setters to either kill or create more pixe
 
 In 1.0.8 you can now pass down a `className`, it adds the className to the grid wrapper, so you can style from parent downwards.
 
-1.0.9 will introduce custom pixels and switching off the default styling via props.
+1.0.9 allows you to set any pixel styles for the pixel through passing in a appropriate style object such as the below:
+
+```tsx
+<AutomataGrid
+    pixelStyles={{
+        activeColor: 'red',
+        inactiveColor: 'blue',
+        width: 25,
+        height: 25,
+        border: 1,
+        borderColor: 'black'
+    }}
+/>
+```
 
 ## Example: Conway's game of life - Beacon
 
@@ -152,5 +166,5 @@ https://www.npmjs.com/package/cellular-automata-react
 
 ## Planned
 
-[x] Customisable theme for grid. (1.0.8)
-[ ] Customisable pixels. (1.0.9)
+- [x] Customisable theme for grid. (1.0.8).
+- [x] Customisable pixels. (1.0.9).

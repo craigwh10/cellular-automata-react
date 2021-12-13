@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect } from 'react';
 import {Grid} from '../components/Grid';
-import { Pixel, usePixelStore } from '../store/usePixelStore';
+import { Pixel, PixelStyles, usePixelStore } from '../store/usePixelStore';
 
 interface AutomataGridProps {
     rules: (
@@ -19,6 +19,7 @@ interface AutomataGridProps {
     size: number,
     iterationTimeInMs: number,
     className?: string,
+    pixelStyles?: PixelStyles
 }
 
 export function AutomataGrid ({
@@ -27,12 +28,17 @@ export function AutomataGrid ({
     size,
     iterationTimeInMs,
     className,
+    pixelStyles
 }: AutomataGridProps) {
     const setPixelsActive = usePixelStore(state => state.setPixelsActive);
     const checkRulesForActive = usePixelStore(state => state.checkRulesForActive);
+    const setPixelStyles = usePixelStore(state => state.setPixelStyles);
 
     useEffect(() => {
         setPixelsActive(pixelsActive);
+        if (pixelStyles) {
+            setPixelStyles(pixelStyles);
+        }
     }, [])
 
     useLayoutEffect(() => {
