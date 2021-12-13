@@ -36,6 +36,35 @@ You use this callback as a prop within `<AutomataGrid />`.
 
 Then use the data params to apply the setters to either kill or create more pixels.
 
+You can use either the predefined utilities within the package or pass a callback and make your own rules, if they're interesting let me know and I'll add them to the presets :)
+
+Example rule callback: No idea what it does just made it up.
+
+```tsx
+import './App.css';
+import {AutomataGrid, pixelsNearby} from 'cellular-automata-react';
+
+function App() {
+  return (
+        <AutomataGrid
+          rules={(pixel, pixels, size, setPixelsActive, removeActivePixel) => {
+
+              // All pixels brought in this callback are alive
+              // rather than iterating on each grid element.
+
+              const pixelsNearbyArray = pixelsNearby(pixel, size);
+              if (pixelsNearbyArray.length) {
+                  const randomPixel = pixelsNearbyArray[Math.floor(Math.random() * pixelsNearbyArray.length)];
+                  setPixelsActive(randomPixel);
+              }
+          }}
+        />
+  );
+}
+
+export default App;
+```
+
 ## Setting styles 
 
 In 1.0.8 you can now pass down a `className`, it adds the className to the grid wrapper, so you can style from parent downwards.
@@ -62,97 +91,31 @@ Example: Beacon
 From <https://conwaylife.com/wiki/Beacon>.
 
 ```tsx
-<AutomataGrid
-    pixelsActive={[
-        [0,0], [0,1],
-        [1,0], [1,1],
-        [2,2], [2,3],
-        [3,2], [3,3]
-    ]}
-    iterationTimeInMs={1000}
-    size={4}
-    rules={(pixel, pixels, size, setPixelsActive, removeActivePixel) => {
-        // All the neighbors, so we can generate nearby.
-        const movementCombinations: Array<[number, number]> = [
-            [-1,   1], [0,   1], [1, 1],
-            [-1,   0], /*X0Y0 */ [1, 0],
-            [-1,  -1], [0,  -1], [1, -1]
-        ];
-    
-        const isValidPixel = (pixel: undefined | Pixel) => typeof pixel !== 'undefined';    
+import './App.css';
+import {AutomataGrid, conwaysGameOfLifePreset} from 'cellular-automata-react';
 
-        const pixelsNearby = (pixelToCheck: Pixel) => {
-        // Map over these combinations and generate neighbors if in bounds.
-        
-        return movementCombinations.map((movements) => {
-            // XXX | is our space,
-            // XCX | we want to get the coordinates of all the X's
-            // XXX | and not to include them if any values greater than {size}.
-            const newPosition: Pixel = [pixelToCheck[0] + movements[0], pixelToCheck[1] + movements[1]];
-    
-            if (!newPosition.some(coordinate => coordinate > size)) {
-                return newPosition;
-            }
-        }).filter(isValidPixel) as Array<Pixel>; 
-        // To get rid of typescript bug not inferring properly.
-        // We've guarenteed it isn't undefined.
-        }
-    
-        // Return array of neighbors that are alive.
-        const nearbyAlivePixelsInState = (pixelToCheck: Pixel) => {
-        const pixelsNearbyArray = pixelsNearby(pixelToCheck);
-    
-        return pixelsNearbyArray.filter((pixel) => {
-            if (!pixel) return;
-            return JSON.stringify(pixels).includes(JSON.stringify(pixel));
-        })
-        }
-    
-        // Return alive neighbors for current pixel being checked in callback.
-        const aliveNeighborPixels = nearbyAlivePixelsInState(pixel);
-        const aliveNeighbors = aliveNeighborPixels.length;
-    
-        /**
-         * DEAD CELL ACTION: 
-         */
-    
-        // We need to only run if has any dead neighbors
-        if (aliveNeighbors) {
-        // Getting all of the pixels in the area around an alive pixel.
-        const pixelsNearbyArray = pixelsNearby(pixel);
-    
-        // Get an array of the coordinates of the dead pixels around an alive pixel.
-        const deadNeighbors = pixelsNearbyArray.filter((pixel) => {
-            return !JSON.stringify(pixels).includes(JSON.stringify(pixel));
-        });
-    
-        // From these dead pixels from neighborhood, return back the ones that have
-        // 3 alive neighbors around them.
-        const deadPixelsWith3AliveNeighbors = deadNeighbors.filter((deadPixel: Pixel) => {
-            return nearbyAlivePixelsInState(deadPixel).length === 3;
-        })
-    
-        if (deadPixelsWith3AliveNeighbors.length) {
-            setPixelsActive(deadPixelsWith3AliveNeighbors);
-        }
-    
-        }
-    
-        /**
-         * ALIVE CELL ACTIONS: 
-         */
-    
-        // Any live cell with two or three live neighbours survives.
-        if (aliveNeighbors === 3 || aliveNeighbors === 2) {
-            return;
-        }
-    
-        // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
-        else {
-            removeActivePixel(pixel);
-        }
-    }}
-/>
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <AutomataGrid
+          pixelsActive={[
+            [0,0], [0,1],
+            [1,0], [1,1],
+            [2,2], [2,3],
+            [3,2], [3,3]
+            
+          ]}
+          iterationTimeInMs={1000}
+          size={4}
+          rules={conwaysGameOfLifePreset}
+        />
+      </header>
+    </div>
+  );
+}
+
+export default App;
 ```
 
 ## Opportunities
@@ -168,3 +131,11 @@ https://www.npmjs.com/package/cellular-automata-react
 
 - [x] Customisable theme for grid. (1.0.8).
 - [x] Customisable pixels. (1.0.9).
+- [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
+
+
+## Contribute
+
+Feel free to open PR's for presets or suggestions and I'll happily look over them.
+
+Also if you make anything cool with this let me know and I'll feature it here.
