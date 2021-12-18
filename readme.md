@@ -71,7 +71,7 @@ export default App;
 
 In 1.0.8 you can now pass down a `className`, it adds the className to the grid wrapper, so you can style from parent downwards.
 
-1.0.9 allows you to set any pixel styles for the pixel through passing in a appropriate style object such as the below:
+1.0.9 allows you to set any css-in-js pixel styles for the pixel through passing in a appropriate style object such as the below:
 
 ```tsx
 <AutomataGrid
@@ -86,11 +86,31 @@ In 1.0.8 you can now pass down a `className`, it adds the className to the grid 
 />
 ```
 
-## Example: Conway's game of life - Beacon
+OR via CSS:
 
-Example: Beacon
+```css
+.automata-grid-custom .grid-element {
+  width: 10px !important;
+  height: 10px !important;
+  background: #E2E8F0!important;
+}
 
-From <https://conwaylife.com/wiki/Beacon>.
+.automata-grid-custom .grid-element-alive {
+  background: #38a169 !important;
+}
+```
+
+with the prop:
+
+```tsx
+<AutomataGrid 
+    className="automata-grid-custom"
+/>
+```
+
+## Example: Conway's game of life - Random Soup
+
+Example: Random Soup - Generates a NxN randomised pixel distribution.
 
 ```tsx
 import './App.css';
@@ -180,8 +200,8 @@ https://www.npmjs.com/package/cellular-automata-react
 - [x] Customisable pixels. (1.0.9).
 - [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
 - [x] Reduce number of rerenders and race conditions within algorithm [1.1.3] (STABLE)
-- [ ] Prop validation [1.1.5]
-- [ ] Improved style handling [1.1.6]
+- [ ] Prop validation [1.1.6]
+- [ ] Improved style handling [1.1.7]
 
 
 ## Contribute
