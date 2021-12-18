@@ -114,6 +114,57 @@ function App() {
 export default App;
 ```
 
+## Example rule preset: Conway's game of life
+
+```ts
+import { Pixel } from "../store/usePixelStore";
+import { nearbyAlivePixelsInState, nearbyDeadPixels } from "./utils";
+
+export const conwaysGameOfLifePreset = (pixel: Pixel, pixels: Pixel[], size: number, setPixelsActive: any, removeActivePixels: any) => {
+    // All the neighbors, so we can generate nearby.
+
+
+    // Return alive neighbors for current pixel being checked in callback.
+    const aliveNeighborPixels = nearbyAlivePixelsInState(pixel, size, pixels);
+    const aliveNeighbors = aliveNeighborPixels.length;
+
+    /**
+     * DEAD CELL ACTION: 
+     */
+
+    // We need to only run if has any dead neighbors
+    if (aliveNeighbors) {
+      // Get an array of the coordinates of the dead pixels around an alive pixel.
+      const deadNeighbors = nearbyDeadPixels(pixel, size, pixels)
+
+      // From these dead pixels from neighborhood, return back the ones that have
+      // 3 alive neighbors around them.
+      const deadPixelsWith3AliveNeighbors = deadNeighbors.filter((deadPixel: Pixel) => {
+          return nearbyAlivePixelsInState(deadPixel, size, pixels).length === 3;
+      })
+
+      if (deadPixelsWith3AliveNeighbors.length) {
+        setPixelsActive(deadPixelsWith3AliveNeighbors);
+      }
+
+    }
+
+    /**
+     * ALIVE CELL ACTIONS: 
+     */
+
+    // Any live cell with two or three live neighbours survives.
+    if (aliveNeighbors === 3 || aliveNeighbors === 2) {
+      return;
+    }
+
+    // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+    else {
+      removeActivePixels([pixel]);
+    }
+  }
+```
+
 ## Opportunities
 
 - Variants: <https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/gameOfLife2.html>.
@@ -128,9 +179,9 @@ https://www.npmjs.com/package/cellular-automata-react
 - [x] Customisable theme for grid. (1.0.8).
 - [x] Customisable pixels. (1.0.9).
 - [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
-- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3]
-- [ ] Prop validation [1.1.4]
-- [ ] Improved style handling [1.1.5]
+- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3] (STABLE)
+- [ ] Prop validation [1.1.5]
+- [ ] Improved style handling [1.1.6]
 
 
 ## Contribute
