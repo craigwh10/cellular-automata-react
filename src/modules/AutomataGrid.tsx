@@ -13,7 +13,7 @@ interface AutomataGridProps {
         // Add an array of pixels or just one that should be made active
         setPixelsActive: (pixelsActive: Array<Pixel>) => void,
         // Remove a single pixel by [x,y] if it is active.
-        removeActivePixel: (pixel: Pixel) => void
+        removeActivePixels: (pixel: Array<Pixel>) => void
         ) => void,
     pixelsActive: Array<[number, number]>
     size: number,

@@ -27,8 +27,8 @@ type RuleCallback = (
     size: number,
     // Setter for the next iteration state of the board.
     setPixelsActive: (pixelsActive: Array<Pixel>) => void,
-    // Removing a pixel from state by passing in the coordinate.
-    removeActivePixel: (pixel: Pixel) => void
+    // Removing a group of pixels from state by passing in an array of coordinates.
+    removeActivePixels: (pixel: Array<Pixel>) => void
 ) => void;
 ```
 
@@ -47,7 +47,7 @@ import {AutomataGrid, pixelsNearby} from 'cellular-automata-react';
 function App() {
   return (
         <AutomataGrid
-          rules={(pixel, pixels, size, setPixelsActive, removeActivePixel) => {
+          rules={(pixel, pixels, size, setPixelsActive, removeActivePixels) => {
 
               // All pixels brought in this callback are alive
               // rather than iterating on each grid element.
@@ -94,19 +94,14 @@ From <https://conwaylife.com/wiki/Beacon>.
 
 ```tsx
 import './App.css';
-import {AutomataGrid, conwaysGameOfLifePreset} from 'cellular-automata-react';
+import {AutomataGrid, conwaysGameOfLifePreset, generateSoup} from 'cellular-automata-react';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <AutomataGrid
-          pixelsActive={[
-            [0,0], [0,1],
-            [1,0], [1,1],
-            [2,2], [2,3],
-            [3,2], [3,3]
-          ]}
+          pixelsActive={generateSoup(4)}
           iterationTimeInMs={1000}
           size={4}
           rules={conwaysGameOfLifePreset}
@@ -133,6 +128,9 @@ https://www.npmjs.com/package/cellular-automata-react
 - [x] Customisable theme for grid. (1.0.8).
 - [x] Customisable pixels. (1.0.9).
 - [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
+- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3]
+- [ ] Prop validation [1.1.4]
+- [ ] Improved style handling [1.1.5]
 
 
 ## Contribute

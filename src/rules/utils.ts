@@ -43,3 +43,35 @@ export const nearbyDeadPixels = (pixel: Pixel, size: number, pixels: Pixel[]) =>
         return !JSON.stringify(pixels).includes(JSON.stringify(pixel));
     });
 }
+
+export const generateSoup = (size: number) => {
+    let activePixels: [number, number][] = [];
+
+    for (let idx1 = 0; idx1 < size; idx1++) {
+      for (let idx2 = 0; idx2 < size; idx2++) {
+        if (Math.random() <= 0.5) {
+            activePixels.push([idx1, idx2]);
+        }
+      }
+    }
+    
+    return activePixels;
+};
+
+export const stringifiedArrayOfArrays = <T>(arrayOfArrays: Array<T>): Array<string> => {
+    return arrayOfArrays.map(array => {
+          return JSON.stringify(array);
+      });
+  };
+
+export const groupAndRemoveDuplicatesOfNestedPixelArray = (initialArray: Array<Pixel>, secondArray: Array<Pixel>): Array<Pixel> => {
+    const arrayOfStringifiedArrays = stringifiedArrayOfArrays([...initialArray, ...secondArray]);
+
+    const noDuplicateArrayOfArray = [...new Set(arrayOfStringifiedArrays)];
+
+    const newArrayOfArray = noDuplicateArrayOfArray.map((stringArray) => {
+        return JSON.parse(stringArray) as Pixel;
+    })
+
+    return newArrayOfArray;
+}

@@ -1,7 +1,7 @@
 import { Pixel } from "../store/usePixelStore";
 import { nearbyAlivePixelsInState, nearbyDeadPixels } from "./utils";
 
-export const conwaysGameOfLifePreset = (pixel: Pixel, pixels: Pixel[], size: number, setPixelsActive: any, removeActivePixel: any) => {
+export const conwaysGameOfLifePreset = (pixel: Pixel, pixels: Pixel[], size: number, setPixelsActive: any, removeActivePixels: any) => {
     // All the neighbors, so we can generate nearby.
 
 
@@ -41,6 +41,6 @@ export const conwaysGameOfLifePreset = (pixel: Pixel, pixels: Pixel[], size: num
 
     // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
     else {
-      removeActivePixel(pixel);
+      removeActivePixels([pixel]);
     }
   }
