@@ -1,29 +1,34 @@
-import create from 'zustand'
-import { groupAndRemoveDuplicatesOfNestedPixelArray, stringifiedArrayOfArrays } from '../rules/utils';
+import create from 'zustand';
+import {
+    groupAndRemoveDuplicatesOfNestedPixelArray,
+    stringifiedArrayOfArrays,
+} from '../rules/utils';
 
 export type Pixel = [number, number];
 
 export type PixelStyles = {
-    inactiveColor?: string, 
-    activeColor?: string,
-} & React.CSSProperties
+    inactiveColor?: string;
+    activeColor?: string;
+} & React.CSSProperties;
 
 type PixelStore = {
-    pixelsActive: Array<Pixel>,
-    pixelStyles: PixelStyles,
-    pixelIsActive: (x: number, y: number) => boolean
-    setPixelStyles: (pixelStyles: PixelStyles) => void,
-    setPixelsActive: (pixelsActive: Array<Pixel>) => void
-    removeActivePixels: (pixel: Array<Pixel>) => void
-    checkRulesForActive: (rules: (
-        pixel: Pixel,
-        pixels: Array<Pixel>,
-        size: number,
-        setPixelsActive: (pixelsActive: Array<Pixel>) => void,
-        removeActivePixel: (pixel: Array<Pixel>) => void
-    ) => void, size: number) => void
-}
-
+    pixelsActive: Array<Pixel>;
+    pixelStyles: PixelStyles;
+    pixelIsActive: (x: number, y: number) => boolean;
+    setPixelStyles: (pixelStyles: PixelStyles) => void;
+    setPixelsActive: (pixelsActive: Array<Pixel>) => void;
+    removeActivePixels: (pixel: Array<Pixel>) => void;
+    checkRulesForActive: (
+        rules: (
+            pixel: Pixel,
+            pixels: Array<Pixel>,
+            size: number,
+            setPixelsActive: (pixelsActive: Array<Pixel>) => void,
+            removeActivePixel: (pixel: Array<Pixel>) => void
+        ) => void,
+        size: number
+    ) => void;
+};
 
 export const usePixelStore = create<PixelStore>((set, get) => ({
     pixelsActive: [],
@@ -31,40 +36,59 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
         inactiveColor: 'red',
         activeColor: 'green',
         width: 50,
-        height: 50
+        height: 50,
     },
     setPixelStyles: (states: PixelStyles) => states,
     pixelIsActive: (x, y) => {
-      const pixels = get().pixelsActive;
-      return pixels.some((pixel) => JSON.stringify(pixel) === `[${x},${y}]`);
+        const pixels = get().pixelsActive;
+        return pixels.some((pixel) => JSON.stringify(pixel) === `[${x},${y}]`);
     },
-    setPixelsActive: (pixelsActive) => set((state) => {
-        return {pixelsActive: groupAndRemoveDuplicatesOfNestedPixelArray(state.pixelsActive, pixelsActive)};
-    }),
-    removeActivePixels: (pixelsToDelete) => set(state => ({pixelsActive: state.pixelsActive.filter((pixelFromActive) => {
-        return !stringifiedArrayOfArrays(pixelsToDelete).includes(JSON.stringify(pixelFromActive));
-      })})),
+    setPixelsActive: (pixelsActive) =>
+        set((state) => {
+            return {
+                pixelsActive: groupAndRemoveDuplicatesOfNestedPixelArray(
+                    state.pixelsActive,
+                    pixelsActive
+                ),
+            };
+        }),
+    removeActivePixels: (pixelsToDelete) =>
+        set((state) => ({
+            pixelsActive: state.pixelsActive.filter((pixelFromActive) => {
+                return !stringifiedArrayOfArrays(pixelsToDelete).includes(
+                    JSON.stringify(pixelFromActive)
+                );
+            }),
+        })),
     checkRulesForActive: (rules, size) => {
-      let pixelsToAdd: Pixel[] = [];
-      let pixelsToDelete: Pixel[] = [];
+        let pixelsToAdd: Pixel[] = [];
+        let pixelsToDelete: Pixel[] = [];
 
-      const pixels = get().pixelsActive; // get active pixels
-      const setPixelsActive = get().setPixelsActive;
-      const removeActivePixels = get().removeActivePixels;
+        const pixels = get().pixelsActive; // get active pixels
+        const setPixelsActive = get().setPixelsActive;
+        const removeActivePixels = get().removeActivePixels;
 
-      pixels.forEach((pixel, idx) => {
-        rules(pixel, pixels, size,
-          (newPixels) => {
-              pixelsToAdd = groupAndRemoveDuplicatesOfNestedPixelArray(pixelsToAdd, newPixels)
-          },
-          (pixelsToRemove) => {
-              pixelsToDelete = groupAndRemoveDuplicatesOfNestedPixelArray(pixelsToDelete, pixelsToRemove)
-          }
-        );
-      });
+        pixels.forEach((pixel, idx) => {
+            rules(
+                pixel,
+                pixels,
+                size,
+                (newPixels) => {
+                    pixelsToAdd = groupAndRemoveDuplicatesOfNestedPixelArray(
+                        pixelsToAdd,
+                        newPixels
+                    );
+                },
+                (pixelsToRemove) => {
+                    pixelsToDelete = groupAndRemoveDuplicatesOfNestedPixelArray(
+                        pixelsToDelete,
+                        pixelsToRemove
+                    );
+                }
+            );
+        });
 
-      setPixelsActive(pixelsToAdd);
-      removeActivePixels(pixelsToDelete);
-
+        setPixelsActive(pixelsToAdd);
+        removeActivePixels(pixelsToDelete);
     },
-}))
+}));

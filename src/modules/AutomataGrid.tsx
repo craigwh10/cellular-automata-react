@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect } from 'react';
-import {Grid} from '../components/Grid';
+import { Grid } from '../components/Grid';
 import { Pixel, PixelStyles, usePixelStore } from '../store/usePixelStore';
 
 interface AutomataGridProps {
@@ -14,53 +14,59 @@ interface AutomataGridProps {
         setPixelsActive: (pixelsActive: Array<Pixel>) => void,
         // Remove a single pixel by [x,y] if it is active.
         removeActivePixels: (pixel: Array<Pixel>) => void
-        ) => void,
-    pixelsActive: Array<[number, number]>
-    size: number,
-    iterationTimeInMs: number,
-    className?: string,
-    pixelStyles?: PixelStyles
+    ) => void;
+    pixelsActive: Array<[number, number]>;
+    size: number;
+    iterationTimeInMs: number;
+    className?: string;
+    pixelStyles?: PixelStyles;
 }
 
-export function AutomataGrid ({
+export function AutomataGrid({
     rules,
     pixelsActive,
     size,
     iterationTimeInMs,
     className,
-    pixelStyles
+    pixelStyles,
 }: AutomataGridProps) {
-    const setPixelsActive = usePixelStore(state => state.setPixelsActive);
-    const checkRulesForActive = usePixelStore(state => state.checkRulesForActive);
-    const setPixelStyles = usePixelStore(state => state.setPixelStyles);
+    const setPixelsActive = usePixelStore((state) => state.setPixelsActive);
+    const checkRulesForActive = usePixelStore(
+        (state) => state.checkRulesForActive
+    );
+    const setPixelStyles = usePixelStore((state) => state.setPixelStyles);
 
     useEffect(() => {
         setPixelsActive(pixelsActive);
         if (pixelStyles) {
             setPixelStyles(pixelStyles);
         }
-    }, [])
+    }, []);
 
     useLayoutEffect(() => {
         let timer: ReturnType<typeof setInterval>;
-        
+
         setTimeout(() => {
             timer = setInterval(() => {
                 checkRulesForActive(rules, size);
             }, iterationTimeInMs);
-        }, iterationTimeInMs)
+        }, iterationTimeInMs);
 
         return () => clearInterval(timer);
-    }, [])
+    }, []);
 
-  if (size <= 0) {
-    return <p>Provide a size greater than 0.</p>
-  }
+    if (size <= 0) {
+        return <p>Provide a size greater than 0.</p>;
+    }
 
-  if (iterationTimeInMs <= 0 || iterationTimeInMs < 200) {
-    return <p>Do you want your browser to crash? - try set iteration time higher</p>
-  }
+    if (iterationTimeInMs <= 0 || iterationTimeInMs < 200) {
+        return (
+            <p>
+                Do you want your browser to crash? - try set iteration time
+                higher
+            </p>
+        );
+    }
 
-  return <Grid size={size} className={className} />;
-
-};
+    return <Grid size={size} className={className} />;
+}

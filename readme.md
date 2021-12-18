@@ -6,11 +6,11 @@ Cellular automata has an example called "Conway's game of life" in which you set
 
 This package provides an `<AutomataGrid />` component from which you can:
 
-- Set the initial pixels via coordinates.
-- Set how fast the iterations happen.
-- Set the size of the grid.
-- Set the rules of how the pixels will behave.
-- Set the style of the pixels or grid within.
+-   Set the initial pixels via coordinates.
+-   Set how fast the iterations happen.
+-   Set the size of the grid.
+-   Set the rules of how the pixels will behave.
+-   Set the style of the pixels or grid within.
 
 ## Setting rules
 
@@ -42,32 +42,38 @@ Example rule callback: No idea what it does just made it up.
 
 ```tsx
 import './App.css';
-import {AutomataGrid, pixelsNearby} from 'cellular-automata-react';
+import { AutomataGrid, pixelsNearby } from 'cellular-automata-react';
 
 function App() {
-  return (
+    return (
         <AutomataGrid
-          rules={(pixel, pixels, size, setPixelsActive, removeActivePixels) => {
+            rules={(
+                pixel,
+                pixels,
+                size,
+                setPixelsActive,
+                removeActivePixels
+            ) => {
+                // All pixels brought in this callback are alive
+                // rather than iterating on each grid element.
 
-              // All pixels brought in this callback are alive
-              // rather than iterating on each grid element.
-
-              const pixelsNearbyArray = pixelsNearby(pixel, size);
-              if (pixelsNearbyArray.length) {
-                  const randomPixel = pixelsNearbyArray[
-                      Math.floor(Math.random() * pixelsNearbyArray.length)
-                      ];
-                  setPixelsActive(randomPixel);
-              }
-          }}
+                const pixelsNearbyArray = pixelsNearby(pixel, size);
+                if (pixelsNearbyArray.length) {
+                    const randomPixel =
+                        pixelsNearbyArray[
+                            Math.floor(Math.random() * pixelsNearbyArray.length)
+                        ];
+                    setPixelsActive(randomPixel);
+                }
+            }}
         />
-  );
+    );
 }
 
 export default App;
 ```
 
-## Setting styles 
+## Setting styles
 
 In 1.0.8 you can now pass down a `className`, it adds the className to the grid wrapper, so you can style from parent downwards.
 
@@ -81,7 +87,7 @@ In 1.0.8 you can now pass down a `className`, it adds the className to the grid 
         width: 25,
         height: 25,
         border: 1,
-        borderColor: 'black'
+        borderColor: 'black',
     }}
 />
 ```
@@ -90,22 +96,20 @@ OR via CSS:
 
 ```css
 .automata-grid-custom .grid-element {
-  width: 10px !important;
-  height: 10px !important;
-  background: #E2E8F0!important;
+    width: 10px !important;
+    height: 10px !important;
+    background: #e2e8f0 !important;
 }
 
 .automata-grid-custom .grid-element-alive {
-  background: #38a169 !important;
+    background: #38a169 !important;
 }
 ```
 
 with the prop:
 
 ```tsx
-<AutomataGrid 
-    className="automata-grid-custom"
-/>
+<AutomataGrid className="automata-grid-custom" />
 ```
 
 ## Example: Conway's game of life - Random Soup
@@ -114,21 +118,25 @@ Example: Random Soup - Generates a NxN randomised pixel distribution.
 
 ```tsx
 import './App.css';
-import {AutomataGrid, conwaysGameOfLifePreset, generateSoup} from 'cellular-automata-react';
+import {
+    AutomataGrid,
+    conwaysGameOfLifePreset,
+    generateSoup,
+} from 'cellular-automata-react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <AutomataGrid
-          pixelsActive={generateSoup(4)}
-          iterationTimeInMs={1000}
-          size={4}
-          rules={conwaysGameOfLifePreset}
-        />
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <header className="App-header">
+                <AutomataGrid
+                    pixelsActive={generateSoup(4)}
+                    iterationTimeInMs={1000}
+                    size={4}
+                    rules={conwaysGameOfLifePreset}
+                />
+            </header>
+        </div>
+    );
 }
 
 export default App;
@@ -137,58 +145,67 @@ export default App;
 ## Example rule preset: Conway's game of life
 
 ```ts
-import { Pixel } from "../store/usePixelStore";
-import { nearbyAlivePixelsInState, nearbyDeadPixels } from "./utils";
+import { Pixel } from '../store/usePixelStore';
+import { nearbyAlivePixelsInState, nearbyDeadPixels } from './utils';
 
-export const conwaysGameOfLifePreset = (pixel: Pixel, pixels: Pixel[], size: number, setPixelsActive: any, removeActivePixels: any) => {
+export const conwaysGameOfLifePreset = (
+    pixel: Pixel,
+    pixels: Pixel[],
+    size: number,
+    setPixelsActive: any,
+    removeActivePixels: any
+) => {
     // All the neighbors, so we can generate nearby.
-
 
     // Return alive neighbors for current pixel being checked in callback.
     const aliveNeighborPixels = nearbyAlivePixelsInState(pixel, size, pixels);
     const aliveNeighbors = aliveNeighborPixels.length;
 
     /**
-     * DEAD CELL ACTION: 
+     * DEAD CELL ACTION:
      */
 
     // We need to only run if has any dead neighbors
     if (aliveNeighbors) {
-      // Get an array of the coordinates of the dead pixels around an alive pixel.
-      const deadNeighbors = nearbyDeadPixels(pixel, size, pixels)
+        // Get an array of the coordinates of the dead pixels around an alive pixel.
+        const deadNeighbors = nearbyDeadPixels(pixel, size, pixels);
 
-      // From these dead pixels from neighborhood, return back the ones that have
-      // 3 alive neighbors around them.
-      const deadPixelsWith3AliveNeighbors = deadNeighbors.filter((deadPixel: Pixel) => {
-          return nearbyAlivePixelsInState(deadPixel, size, pixels).length === 3;
-      })
+        // From these dead pixels from neighborhood, return back the ones that have
+        // 3 alive neighbors around them.
+        const deadPixelsWith3AliveNeighbors = deadNeighbors.filter(
+            (deadPixel: Pixel) => {
+                return (
+                    nearbyAlivePixelsInState(deadPixel, size, pixels).length ===
+                    3
+                );
+            }
+        );
 
-      if (deadPixelsWith3AliveNeighbors.length) {
-        setPixelsActive(deadPixelsWith3AliveNeighbors);
-      }
-
+        if (deadPixelsWith3AliveNeighbors.length) {
+            setPixelsActive(deadPixelsWith3AliveNeighbors);
+        }
     }
 
     /**
-     * ALIVE CELL ACTIONS: 
+     * ALIVE CELL ACTIONS:
      */
 
     // Any live cell with two or three live neighbours survives.
     if (aliveNeighbors === 3 || aliveNeighbors === 2) {
-      return;
+        return;
     }
 
     // All other live cells die in the next generation. Similarly, all other dead cells stay dead.
     else {
-      removeActivePixels([pixel]);
+        removeActivePixels([pixel]);
     }
-  }
+};
 ```
 
 ## Opportunities
 
-- Variants: <https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/gameOfLife2.html>.
-- Patterns to generate interesting behaviour: <https://conwaylife.com/wiki/>
+-   Variants: <https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/gameOfLife2.html>.
+-   Patterns to generate interesting behaviour: <https://conwaylife.com/wiki/>
 
 ---
 
@@ -196,13 +213,12 @@ https://www.npmjs.com/package/cellular-automata-react
 
 ## Planned
 
-- [x] Customisable theme for grid. (1.0.8).
-- [x] Customisable pixels. (1.0.9).
-- [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
-- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3] (STABLE)
-- [ ] Prop validation [1.1.6]
-- [ ] Improved style handling [1.1.7]
-
+-   [x] Customisable theme for grid. (1.0.8).
+-   [x] Customisable pixels. (1.0.9).
+-   [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
+-   [x] Reduce number of rerenders and race conditions within algorithm [1.1.3] (STABLE)
+-   [ ] Prop validation [1.1.6]
+-   [ ] Improved style handling [1.1.7]
 
 ## Contribute
 
