@@ -213,12 +213,13 @@ https://www.npmjs.com/package/cellular-automata-react
 
 ## Planned
 
--   [x] Customisable theme for grid. (1.0.8).
--   [x] Customisable pixels. (1.0.9).
--   [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
--   [x] Reduce number of rerenders and race conditions within algorithm [1.1.3] (STABLE)
--   [ ] Prop validation [1.1.6]
--   [ ] Improved style handling [1.1.7]
+- [x] Customisable theme for grid. (1.0.8).
+- [x] Customisable pixels. (1.0.9).
+- [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
+- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3] (STABLE)
+- [ ] Npm optimisation [1.1.7]
+- [ ] Prop validation [1.1.8]
+- [ ] Improved style handling [1.1.9]
 
 ## Contribute
 
