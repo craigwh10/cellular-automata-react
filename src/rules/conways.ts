@@ -5,8 +5,8 @@ export const conwaysGameOfLifePreset = (
     pixel: Pixel,
     pixels: Pixel[],
     size: number,
-    setPixelsActive: any,
-    removeActivePixels: any
+    setPixelsActive: (pixelsActive: Array<Pixel>) => void,
+    removeActivePixels: (pixel: Array<Pixel>) => void
 ) => {
     // All the neighbors, so we can generate nearby.
 
@@ -18,7 +18,6 @@ export const conwaysGameOfLifePreset = (
      * DEAD CELL ACTION:
      */
 
-    // We need to only run if has any dead neighbors
     if (aliveNeighbors) {
         // Get an array of the coordinates of the dead pixels around an alive pixel.
         const deadNeighbors = nearbyDeadPixels(pixel, size, pixels);

@@ -27,7 +27,10 @@ export const pixelsNearby = (pixelToCheck: Pixel, size: number) => {
                 pixelToCheck[1] + movements[1],
             ];
 
-            if (!newPosition.some((coordinate) => coordinate > size)) {
+            if (!newPosition.some((coordinate) => {
+                // Not outside max or min
+                return (coordinate > size - 1) || (coordinate < 0)
+            })) {
                 return newPosition;
             } else {
                 return undefined;
