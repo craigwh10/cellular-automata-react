@@ -38,7 +38,7 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
         width: 50,
         height: 50,
     },
-    setPixelStyles: (states: PixelStyles) => states,
+    setPixelStyles: (states: PixelStyles) => set((state) => ({pixelStyles: {...state.pixelStyles, ...states}})),
     pixelIsActive: (x, y) => {
         const pixels = get().pixelsActive;
         return pixels.some((pixel) => JSON.stringify(pixel) === `[${x},${y}]`);

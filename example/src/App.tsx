@@ -27,6 +27,9 @@ function App() {
           iterationTimeInMs={500}
           size={20}
           rules={conwaysGameOfLifePreset}
+          pixelStyles={{
+            activeColor: 'purple'
+          }}
         />
       </header>
     </div>

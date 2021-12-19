@@ -2,7 +2,7 @@
 
 This is the result of a walkthrough I wrote on <http://craigwh.it/posts/conways-game-of-life-in-react>.
 
-Cellular automata has an example called "Conway's game of life" in which you set simple rules for how pixels behave given some initial positions, which can make some interesting behaviour, conway's game of life is one of the examples that is turing complete.
+Cellular automata has an example called "Conway's game of life" in which you set simple rules for how pixels behave given some initial positions, which can make some interesting behaviour, Conway's game of life is one of the examples that is turing complete.
 
 This package provides an `<AutomataGrid />` component from which you can:
 
@@ -216,10 +216,9 @@ https://www.npmjs.com/package/cellular-automata-react
 - [x] Customisable theme for grid. (1.0.8).
 - [x] Customisable pixels. (1.0.9).
 - [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
-- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3] (STABLE)
+- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3]
 - [x] Npm optimisation [1.1.7]
-- [ ] Prop validation [1.1.9]
-- [ ] Improved style handling [1.2.0]
+- [x] Improved style handling [1.1.9] (STABLE)
 
 ## Contribute
 

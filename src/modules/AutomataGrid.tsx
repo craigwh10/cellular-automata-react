@@ -56,14 +56,13 @@ export function AutomataGrid({
     }, []);
 
     if (size <= 0) {
-        return <p>Provide a size greater than 0.</p>;
+        return <p>Error: Provide a size greater than 0.</p>;
     }
 
     if (iterationTimeInMs <= 0 || iterationTimeInMs < 200) {
         return (
             <p>
-                Do you want your browser to crash? - try set iteration time
-                higher
+                Error: Iteration time too low, try greater than 200ms.
             </p>
         );
     }
