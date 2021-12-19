@@ -6,10 +6,10 @@ import {
 
 export type Pixel = [number, number];
 
-export type PixelStyles = {
+export type PixelStyles = Omit<{
     inactiveColor?: string;
     activeColor?: string;
-} & React.CSSProperties;
+} & React.CSSProperties, 'backgroundColor'>;
 
 type PixelStore = {
     pixelsActive: Array<Pixel>;
