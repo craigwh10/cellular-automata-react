@@ -68,7 +68,7 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
         const setPixelsActive = get().setPixelsActive;
         const removeActivePixels = get().removeActivePixels;
 
-        pixels.forEach((pixel, idx) => {
+        pixels.forEach((pixel) => {
             rules(
                 pixel,
                 pixels,
