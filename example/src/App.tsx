@@ -1,23 +1,9 @@
 import React from 'react';
 import './App.css';
-import {AutomataGrid, conwaysGameOfLifePreset} from 'cellular-automata-react';
+import {AutomataGrid, conwaysGameOfLifePreset, generateSoup} from 'cellular-automata-react';
 
 function App() {
-  const generateSoup = (size: number) => {
-    let activePixels: [number, number][] = [];
-
-    for (let idx1 = 0; idx1 < size; idx1++) {
-      for (let idx2 = 0; idx2 < size; idx2++) {
-        if (Math.random() <= 0.5) {
-            activePixels.push([idx1, idx2]);
-        }
-      }
-    }
-    
-    return activePixels;
-  };
-
-  const soup = generateSoup(20);
+  const soup = generateSoup({xWidth: 40, yWidth: 12});
 
   return (
     <div className="App">
@@ -25,7 +11,10 @@ function App() {
         <AutomataGrid
           pixelsActive={soup}
           iterationTimeInMs={500}
-          size={20}
+          size={{
+            xWidth: 40,
+            yWidth: 12
+          }}
           rules={conwaysGameOfLifePreset}
           pixelStyles={{
             activeColor: 'purple'

@@ -1,10 +1,11 @@
+import { AutomataGridSizeProp } from '../modules/AutomataGrid';
 import { Pixel } from '../store/usePixelStore';
 import { nearbyAlivePixelsInState, nearbyDeadPixels } from './utils';
 
 export const conwaysGameOfLifePreset = (
     pixel: Pixel,
     pixels: Pixel[],
-    size: number,
+    size: AutomataGridSizeProp,
     setPixelsActive: (pixelsActive: Array<Pixel>) => void,
     removeActivePixels: (pixel: Array<Pixel>) => void
 ) => {

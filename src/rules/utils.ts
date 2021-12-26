@@ -1,3 +1,4 @@
+import { AutomataGridSizeProp } from '../modules/AutomataGrid';
 import type { Pixel } from '../store/usePixelStore';
 
 export const movementCombinations: Array<[number, number]> = [
@@ -14,7 +15,7 @@ export const movementCombinations: Array<[number, number]> = [
 export const isValidPixel = (pixel: undefined | Pixel) =>
     typeof pixel !== 'undefined';
 
-export const pixelsNearby = (pixelToCheck: Pixel, size: number) => {
+export const pixelsNearby = (pixelToCheck: Pixel, size: AutomataGridSizeProp) => {
     // Map over these combinations and generate neighbors if in bounds.
 
     return movementCombinations
@@ -27,9 +28,12 @@ export const pixelsNearby = (pixelToCheck: Pixel, size: number) => {
                 pixelToCheck[1] + movements[1],
             ];
 
-            if (!newPosition.some((coordinate) => {
+            if (!newPosition.some((coordinate, index) => {
                 // Not outside max or min
-                return (coordinate > size - 1) || (coordinate < 0)
+                if (coordinate < 0) return true;
+                if (index === 0 && coordinate > size.xWidth - 1) return true;
+                if (index === 1 && coordinate > size.yWidth - 1) return true;
+                else return false;
             })) {
                 return newPosition;
             } else {
@@ -43,7 +47,7 @@ export const pixelsNearby = (pixelToCheck: Pixel, size: number) => {
 
 export const nearbyAlivePixelsInState = (
     pixelToCheck: Pixel,
-    size: number,
+    size: AutomataGridSizeProp,
     pixels: Pixel[]
 ) => {
     const pixelsNearbyArray = pixelsNearby(pixelToCheck, size);
@@ -56,7 +60,7 @@ export const nearbyAlivePixelsInState = (
 
 export const nearbyDeadPixels = (
     pixel: Pixel,
-    size: number,
+    size: AutomataGridSizeProp,
     pixels: Pixel[]
 ) => {
     const pixelsNearbyArray = pixelsNearby(pixel, size);
@@ -66,11 +70,11 @@ export const nearbyDeadPixels = (
     });
 };
 
-export const generateSoup = (size: number) => {
+export const generateSoup = (size: AutomataGridSizeProp) => {
     let activePixels: [number, number][] = [];
 
-    for (let idx1 = 0; idx1 < size; idx1++) {
-        for (let idx2 = 0; idx2 < size; idx2++) {
+    for (let idx1 = 0; idx1 < size.xWidth; idx1++) {
+        for (let idx2 = 0; idx2 < size.yWidth; idx2++) {
             if (Math.random() <= 0.5) {
                 activePixels.push([idx1, idx2]);
             }

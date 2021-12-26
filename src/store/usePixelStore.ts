@@ -1,4 +1,5 @@
 import create from 'zustand';
+import { AutomataGridSizeProp } from '../modules/AutomataGrid';
 import {
     groupAndRemoveDuplicatesOfNestedPixelArray,
     stringifiedArrayOfArrays,
@@ -22,11 +23,11 @@ type PixelStore = {
         rules: (
             pixel: Pixel,
             pixels: Array<Pixel>,
-            size: number,
+            size: AutomataGridSizeProp,
             setPixelsActive: (pixelsActive: Array<Pixel>) => void,
             removeActivePixel: (pixel: Array<Pixel>) => void
         ) => void,
-        size: number
+        size: AutomataGridSizeProp
     ) => void;
 };
 

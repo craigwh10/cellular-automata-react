@@ -131,7 +131,10 @@ function App() {
                 <AutomataGrid
                     pixelsActive={generateSoup(4)}
                     iterationTimeInMs={1000}
-                    size={4}
+                    size={{
+                        xWidth: 4,
+                        yWidth: 4
+                    }}
                     rules={conwaysGameOfLifePreset}
                 />
             </header>
@@ -219,6 +222,7 @@ https://www.npmjs.com/package/cellular-automata-react
 - [x] Reduce number of rerenders and race conditions within algorithm [1.1.3]
 - [x] Npm optimisation [1.1.7]
 - [x] Improved style handling [1.1.9] (STABLE)
+- [ ] Allowed for uneven grid sizes [1.2.1]
 
 ## Contribute
 

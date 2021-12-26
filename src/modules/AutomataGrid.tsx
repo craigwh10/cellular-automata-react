@@ -2,6 +2,11 @@ import { useEffect, useLayoutEffect } from 'react';
 import { Grid } from '../components/Grid';
 import { Pixel, PixelStyles, usePixelStore } from '../store/usePixelStore';
 
+export interface AutomataGridSizeProp {
+    xWidth: number,
+    yWidth: number
+}
+
 interface AutomataGridProps {
     rules: (
         // All pixels that will be iterated on [x,y].
@@ -9,14 +14,14 @@ interface AutomataGridProps {
         // The current state of the board [[x1,y1], [x2,y2], ...]
         pixels: Array<Pixel>,
         // The size of the board {size} x {size}.
-        size: number,
+        size: AutomataGridSizeProp,
         // Add an array of pixels or just one that should be made active
         setPixelsActive: (pixelsActive: Array<Pixel>) => void,
         // Remove a single pixel by [x,y] if it is active.
         removeActivePixels: (pixel: Array<Pixel>) => void
     ) => void;
     pixelsActive: Array<[number, number]>;
-    size: number;
+    size: AutomataGridSizeProp;
     iterationTimeInMs: number;
     className?: string;
     pixelStyles?: PixelStyles;
@@ -55,7 +60,7 @@ export function AutomataGrid({
         return () => clearInterval(timer);
     }, []);
 
-    if (size <= 0) {
+    if (size.xWidth <= 0 && size.yWidth) {
         return <p>Error: Provide a size greater than 0.</p>;
     }
 
