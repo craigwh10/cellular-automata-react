@@ -233,11 +233,11 @@ https://www.npmjs.com/package/cellular-automata-react
 -   [x] Npm optimisation [1.1.7]
 -   [x] Improved style handling [1.1.9]
 -   [x] Allowed for uneven grid sizes [1.2.1]
--   [x] Fixed zustand store not resetting on unmount [1.2.2] (STABLE)
--   [ ] Improve coverage for package [1.2.3]
--   [ ] Add benchmarks for CAR. [1.2.4]
--   [ ] Optimise CAR. [1.2.5]
--   [ ] Settable pixel properties [1.2.6]
+-   [x] Fixed zustand store not resetting on unmount [1.2.3] (STABLE)
+-   [ ] Improve coverage for package [1.2.4]
+-   [ ] Add benchmarks for CAR. [1.2.5]
+-   [ ] Optimise CAR. [1.2.6]
+-   [ ] Settable pixel properties [1.2.7]
 
 ## Contribute
 

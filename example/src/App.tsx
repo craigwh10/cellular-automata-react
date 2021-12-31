@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {AutomataGrid, conwaysGameOfLifePreset, generateSoup, Pixel} from 'cellular-automata-react';
+import {AutomataGrid, conwaysGameOfLifePreset, generateSoup} from 'cellular-automata-react';
 
 function App() {
   const soup = generateSoup({xWidth: 40, yWidth: 12});

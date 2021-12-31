@@ -40,14 +40,14 @@ export function AutomataGrid({
         (state) => state.checkRulesForActive
     );
     const setPixelStyles = usePixelStore((state) => state.setPixelStyles);
-    const clearStore = usePixelStore((state) => state.clearStore);
+    const clearPixelsActive = usePixelStore((state) => state.clearPixelsActive);
 
     useEffect(() => {
         setPixelsActive(pixelsActive);
         if (pixelStyles) {
             setPixelStyles(pixelStyles);
         }
-        return () => clearStore();
+        return () => clearPixelsActive();
     }, []);
 
     useLayoutEffect(() => {

@@ -32,7 +32,7 @@ type PixelStore = {
         ) => void,
         size: AutomataGridSizeProp
     ) => void;
-    clearStore: () => void;
+    clearPixelsActive: () => void;
 };
 
 export const usePixelStore = create<PixelStore>((set, get) => ({
@@ -97,5 +97,5 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
         setPixelsActive(pixelsToAdd);
         removeActivePixels(pixelsToDelete);
     },
-    clearStore: () => set({}, true),
+    clearPixelsActive: () => set({ pixelsActive: [] }),
 }));
