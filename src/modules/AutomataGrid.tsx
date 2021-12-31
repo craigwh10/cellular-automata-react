@@ -3,8 +3,8 @@ import { Grid } from '../components/Grid';
 import { Pixel, PixelStyles, usePixelStore } from '../store/usePixelStore';
 
 export interface AutomataGridSizeProp {
-    xWidth: number,
-    yWidth: number
+    xWidth: number;
+    yWidth: number;
 }
 
 interface AutomataGridProps {
@@ -40,12 +40,14 @@ export function AutomataGrid({
         (state) => state.checkRulesForActive
     );
     const setPixelStyles = usePixelStore((state) => state.setPixelStyles);
+    const clearStore = usePixelStore((state) => state.clearStore);
 
     useEffect(() => {
         setPixelsActive(pixelsActive);
         if (pixelStyles) {
             setPixelStyles(pixelStyles);
         }
+        return () => clearStore();
     }, []);
 
     useLayoutEffect(() => {
@@ -65,11 +67,7 @@ export function AutomataGrid({
     }
 
     if (iterationTimeInMs <= 0 || iterationTimeInMs < 200) {
-        return (
-            <p>
-                Error: Iteration time too low, try greater than 200ms.
-            </p>
-        );
+        return <p>Error: Iteration time too low, try greater than 200ms.</p>;
     }
 
     return <Grid size={size} className={className} />;

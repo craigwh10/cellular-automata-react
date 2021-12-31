@@ -2,15 +2,51 @@
 
 This is the result of a walkthrough I wrote on <http://craigwh.it/posts/conways-game-of-life-in-react>.
 
-Cellular automata has an example called "Conway's game of life" in which you set simple rules for how pixels behave given some initial positions, which can make some interesting behaviour, Conway's game of life is one of the examples that is turing complete.
+Cellular automata is a computational study of looking at the behaviour of "things" within a grid in which you set simple rules for how "things" behave/interact given some initial positions, which can lead make some interesting and complex behaviour, Conway's game of life is an example that is turing complete.
 
 This package provides an `<AutomataGrid />` component from which you can:
 
-- Set the initial pixels via coordinates.
-- Set how fast the iterations happen.
-- Set the size of the grid.
-- Set the rules of how the pixels will behave.
-- Set the style of the pixels or grid within.
+-   Set the initial pixels via coordinates.
+-   Set how fast the iterations happen.
+-   Set the size of the grid.
+-   Set the rules of how the pixels will behave.
+-   Set the style of the pixels or grid within.
+
+## Example: Conway's game of life with a randomised pixel soup
+
+Example: Random Soup - Generates a N randomised pixel distribution.
+
+```tsx
+import './App.css';
+import {
+    AutomataGrid,
+    conwaysGameOfLifePreset,
+    generateSoup,
+} from 'cellular-automata-react';
+
+function App() {
+    const gridDimensions = {
+        xWidth: 4,
+        yWidth: 4,
+    };
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <AutomataGrid
+                    pixelsActive={generateSoup(gridDimensions)}
+                    iterationTimeInMs={1000}
+                    size={gridDimensions}
+                    rules={conwaysGameOfLifePreset}
+                    className="conway-grid"
+                />
+            </header>
+        </div>
+    );
+}
+
+export default App;
+```
 
 ## Setting rules
 
@@ -112,51 +148,24 @@ with the prop:
 <AutomataGrid className="automata-grid-custom" />
 ```
 
-## Example: Conway's game of life - Random Soup
-
-Example: Random Soup - Generates a NxN randomised pixel distribution.
-
-```tsx
-import './App.css';
-import {
-    AutomataGrid,
-    conwaysGameOfLifePreset,
-    generateSoup,
-} from 'cellular-automata-react';
-
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <AutomataGrid
-                    pixelsActive={generateSoup(4)}
-                    iterationTimeInMs={1000}
-                    size={{
-                        xWidth: 4,
-                        yWidth: 4
-                    }}
-                    rules={conwaysGameOfLifePreset}
-                />
-            </header>
-        </div>
-    );
-}
-
-export default App;
-```
-
 ## Example rule preset: Conway's game of life
 
+Feel free to take this apart and create your own unique cellular automata algorithm, if you find any cool ones, open a PR with them as a `rule`.
+
 ```ts
-import { Pixel } from '../store/usePixelStore';
-import { nearbyAlivePixelsInState, nearbyDeadPixels } from './utils';
+import {
+    nearbyAlivePixelsInState,
+    nearbyDeadPixels,
+    Pixel,
+    AutomataGridSizeProp,
+} from 'cellular-automata-react';
 
 export const conwaysGameOfLifePreset = (
     pixel: Pixel,
     pixels: Pixel[],
-    size: number,
-    setPixelsActive: any,
-    removeActivePixels: any
+    size: AutomataGridSizeProp,
+    setPixelsActive: (pixelsActive: Array<Pixel>) => void,
+    removeActivePixels: (pixel: Array<Pixel>) => void
 ) => {
     // All the neighbors, so we can generate nearby.
 
@@ -209,6 +218,7 @@ export const conwaysGameOfLifePreset = (
 
 -   Variants: <https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/gameOfLife2.html>.
 -   Patterns to generate interesting behaviour: <https://conwaylife.com/wiki/>
+-   Every method used to create the Conway's example is available within the package for ease of creation of rulesets, if you create any just open a PR.
 
 ---
 
@@ -216,13 +226,18 @@ https://www.npmjs.com/package/cellular-automata-react
 
 ## Planned
 
-- [x] Customisable theme for grid. (1.0.8).
-- [x] Customisable pixels. (1.0.9).
-- [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
-- [x] Reduce number of rerenders and race conditions within algorithm [1.1.3]
-- [x] Npm optimisation [1.1.7]
-- [x] Improved style handling [1.1.9] (STABLE)
-- [ ] Allowed for uneven grid sizes [1.2.1]
+-   [x] Customisable theme for grid. (1.0.8).
+-   [x] Customisable pixels. (1.0.9).
+-   [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
+-   [x] Reduce number of rerenders and race conditions within algorithm [1.1.3]
+-   [x] Npm optimisation [1.1.7]
+-   [x] Improved style handling [1.1.9]
+-   [x] Allowed for uneven grid sizes [1.2.1]
+-   [x] Fixed zustand store not resetting on unmount [1.2.2] (STABLE)
+-   [ ] Improve coverage for package [1.2.3]
+-   [ ] Add benchmarks for CAR. [1.2.4]
+-   [ ] Optimise CAR. [1.2.5]
+-   [ ] Settable pixel properties [1.2.6]
 
 ## Contribute
 

@@ -7,10 +7,13 @@ import {
 
 export type Pixel = [number, number];
 
-export type PixelStyles = Omit<{
-    inactiveColor?: string;
-    activeColor?: string;
-} & React.CSSProperties, 'backgroundColor'>;
+export type PixelStyles = Omit<
+    {
+        inactiveColor?: string;
+        activeColor?: string;
+    } & React.CSSProperties,
+    'backgroundColor'
+>;
 
 type PixelStore = {
     pixelsActive: Array<Pixel>;
@@ -29,6 +32,7 @@ type PixelStore = {
         ) => void,
         size: AutomataGridSizeProp
     ) => void;
+    clearStore: () => void;
 };
 
 export const usePixelStore = create<PixelStore>((set, get) => ({
@@ -39,7 +43,8 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
         width: 50,
         height: 50,
     },
-    setPixelStyles: (states: PixelStyles) => set((state) => ({pixelStyles: {...state.pixelStyles, ...states}})),
+    setPixelStyles: (states: PixelStyles) =>
+        set((state) => ({ pixelStyles: { ...state.pixelStyles, ...states } })),
     pixelIsActive: (x, y) => {
         const pixels = get().pixelsActive;
         return pixels.some((pixel) => JSON.stringify(pixel) === `[${x},${y}]`);
@@ -92,4 +97,5 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
         setPixelsActive(pixelsToAdd);
         removeActivePixels(pixelsToDelete);
     },
+    clearStore: () => set({}, true),
 }));

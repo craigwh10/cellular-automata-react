@@ -1,6 +1,11 @@
 import { AutomataGridSizeProp } from '../modules/AutomataGrid';
 import type { Pixel } from '../store/usePixelStore';
 
+// To make them available for when
+// people are creating external utilities.
+export { Pixel };
+export { AutomataGridSizeProp };
+
 export const movementCombinations: Array<[number, number]> = [
     [-1, 1],
     [0, 1],
@@ -15,7 +20,10 @@ export const movementCombinations: Array<[number, number]> = [
 export const isValidPixel = (pixel: undefined | Pixel) =>
     typeof pixel !== 'undefined';
 
-export const pixelsNearby = (pixelToCheck: Pixel, size: AutomataGridSizeProp) => {
+export const pixelsNearby = (
+    pixelToCheck: Pixel,
+    size: AutomataGridSizeProp
+) => {
     // Map over these combinations and generate neighbors if in bounds.
 
     return movementCombinations
@@ -28,13 +36,17 @@ export const pixelsNearby = (pixelToCheck: Pixel, size: AutomataGridSizeProp) =>
                 pixelToCheck[1] + movements[1],
             ];
 
-            if (!newPosition.some((coordinate, index) => {
-                // Not outside max or min
-                if (coordinate < 0) return true;
-                if (index === 0 && coordinate > size.xWidth - 1) return true;
-                if (index === 1 && coordinate > size.yWidth - 1) return true;
-                else return false;
-            })) {
+            if (
+                !newPosition.some((coordinate, index) => {
+                    // Not outside max or min
+                    if (coordinate < 0) return true;
+                    if (index === 0 && coordinate > size.xWidth - 1)
+                        return true;
+                    if (index === 1 && coordinate > size.yWidth - 1)
+                        return true;
+                    else return false;
+                })
+            ) {
                 return newPosition;
             } else {
                 return undefined;
@@ -71,7 +83,7 @@ export const nearbyDeadPixels = (
 };
 
 export const generateSoup = (size: AutomataGridSizeProp) => {
-    let activePixels: [number, number][] = [];
+    const activePixels: [number, number][] = [];
 
     for (let idx1 = 0; idx1 < size.xWidth; idx1++) {
         for (let idx2 = 0; idx2 < size.yWidth; idx2++) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {AutomataGrid, conwaysGameOfLifePreset, generateSoup} from 'cellular-automata-react';
+import {AutomataGrid, conwaysGameOfLifePreset, generateSoup, Pixel} from 'cellular-automata-react';
 
 function App() {
   const soup = generateSoup({xWidth: 40, yWidth: 12});
@@ -10,7 +10,7 @@ function App() {
       <header className="App-header">
         <AutomataGrid
           pixelsActive={soup}
-          iterationTimeInMs={500}
+          iterationTimeInMs={1000}
           size={{
             xWidth: 40,
             yWidth: 12
