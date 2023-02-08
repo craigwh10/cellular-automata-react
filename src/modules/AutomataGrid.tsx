@@ -9,21 +9,67 @@ export interface AutomataGridSizeProp {
 
 interface AutomataGridProps {
     rules: (
-        // All pixels that will be iterated on [x,y].
+        /**
+         * All pixels that will be iterated on [x,y].
+         */
         pixel: Pixel,
-        // The current state of the board [[x1,y1], [x2,y2], ...]
+        /**
+         * The current state of the board [[x1,y1], [x2,y2], ...]
+         */
         pixels: Array<Pixel>,
-        // The size of the board {size} x {size}.
+        /**
+         * The size of the board {size} x {size}.
+         */
         size: AutomataGridSizeProp,
-        // Add an array of pixels or just one that should be made active
+        /**
+         * Add an array of pixels or just one that should be made active
+         */
         setPixelsActive: (pixelsActive: Array<Pixel>) => void,
-        // Remove a single pixel by [x,y] if it is active.
+        /**
+         * Remove a single pixel by [x,y] if it is active.
+         */
         removeActivePixels: (pixel: Array<Pixel>) => void
-    ) => void;
+    ) => void;     
+    /**
+     * @example
+     * <AutomataGrid
+     *    pixelsActive={[[1,1]]}
+     * />
+     */
     pixelsActive: Array<[number, number]>;
+    /**
+     * @example
+     * <AutomataGrid
+     *   size={{
+     *      xWidth: 4,
+     *      yWidth: 4    
+     *  }}
+     * />
+     */
     size: AutomataGridSizeProp;
     iterationTimeInMs: number;
+    /**
+     * Can help to create specific stylings for grid.
+     * @example
+     * <AutomataGrid
+     *   className="my-grid"
+     * />
+     * @example
+     * .my-grid {
+     *  border: 1px solid blue;
+     * }
+     */
     className?: string;
+    /**
+     * Can help to create specific stylings for grid.
+     * @example
+     * <AutomataGrid
+     *   pixelStyles={{
+     *      activeColor: 'red',
+     *      inactiveColor: 'purple'
+     *  }}
+     * />
+     */
     pixelStyles?: PixelStyles;
 }
 
