@@ -1,6 +1,6 @@
 {
   "name": "cellular-automata-react",
-  "version": "0.0.1",
+  "version": "2.4.1",
   "description": "Cellular Automata grid component capable of running your own automata variants, includes a library containing Conways game of life preset and its methods.",
   "main": "lib/index.js",
   "module": "lib/index.es.js",
