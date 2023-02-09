@@ -12,7 +12,7 @@
     "lint": "./node_modules/.bin/eslint .",
     "pre:build": "npm i –production",
     "release": "standard-version",
-    "t:u": "jest ./src/__tests__"
+    "t:u": "jest ./src/__tests__ --coverage"
   },
   "keywords": [
     "cellular",
@@ -71,7 +71,7 @@
     "/lib"
   ],
   "dependencies": {
-    "zustand": "^3.6.7"
+    "zustand": "^4.3.2"
   },
   "config": {
     "commitizen": {

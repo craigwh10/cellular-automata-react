@@ -4,7 +4,11 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup/jest-setup.ts'],
   testPathIgnorePatterns : [
-    "<rootDir>/src/__tests__/setup" 
+    "<rootDir>/src/__tests__/setup",
+    "<rootDir>/src/__tests__/@types",
+    "<rootDir>/src/__tests__/@utils",
+    "<rootDir>/example",
+    "<rootDir>/example-ssr"
   ],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':

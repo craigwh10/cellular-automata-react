@@ -72,7 +72,7 @@ interface AutomataGridProps {
      *   iterationTimeInMs={1000}
      * />
      */
-    iterationTimeInMs: number;
+    iterationTimeInMs?: number;
     /**
      * Can help to create specific stylings for grid (optional).
      * @example
@@ -107,9 +107,7 @@ export function AutomataGrid({
     pixelStyles,
 }: AutomataGridProps) {
     const setPixelsActive = usePixelStore((state) => state.setPixelsActive);
-    const checkRulesForActive = usePixelStore(
-        (state) => state.checkRulesForActive
-    );
+    const checkRulesForActive = usePixelStore((state) => state.checkRulesForActive);
     const setPixelStyles = usePixelStore((state) => state.setPixelStyles);
     const clearPixelsActive = usePixelStore((state) => state.clearPixelsActive);
 
@@ -133,8 +131,8 @@ export function AutomataGrid({
         return () => clearInterval(timer);
     }, []);
 
-    if (size.xWidth <= 0 && size.yWidth) {
-        return <p>Automata Grid Error: Provide a size greater than 0.</p>;
+    if (size.xWidth <= 0 && size.yWidth <= 0) {
+        return <p>Automata Grid Error: Provide sizes greater than 0.</p>;
     }
 
     if (iterationTimeInMs <= 0 || iterationTimeInMs < 200) {
