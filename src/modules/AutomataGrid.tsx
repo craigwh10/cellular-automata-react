@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Grid } from '../components/Grid';
 import { Pixel, PixelStyles, usePixelStore } from '../store/usePixelStore';
-import { useIsomorphicLayoutEffect } from '../utils/useIsomorphicEffect';
+import { useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
 
 export interface AutomataGridSizeProp {
     /**

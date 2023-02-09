@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { useLayoutEffect, useEffect } from 'react';
 /**
  * Usage for SSR compatability
