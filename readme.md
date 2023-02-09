@@ -131,13 +131,13 @@ In 1.0.8 you can now pass down a `className`, it adds the className to the grid 
 OR via CSS:
 
 ```css
-.automata-grid-custom .grid-element {
+.automata-grid-custom .automata-grid-element {
     width: 10px !important;
     height: 10px !important;
     background: #e2e8f0 !important;
 }
 
-.automata-grid-custom .grid-element-alive {
+.automata-grid-custom .automata-grid-element-alive {
     background: #38a169 !important;
 }
 ```
