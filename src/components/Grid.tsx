@@ -1,5 +1,4 @@
 import { GridRow } from './GridRow';
-import '../styles/Grid.scss';
 import { AutomataGridSizeProp } from '../modules/AutomataGrid';
 
 interface ConwayGridProps {
@@ -9,7 +8,10 @@ interface ConwayGridProps {
 
 export function Grid({ size, className }: ConwayGridProps) {
     return (
-        <div className={`grid-container ${className || ''}`}>
+        <div className={className && `${className}`} style={{
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
             {[...Array(size.yWidth)].map((_, yValue) => (
                 <GridRow
                     size={size}

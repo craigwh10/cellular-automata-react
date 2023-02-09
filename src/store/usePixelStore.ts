@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { AutomataGridSizeProp } from '../modules/AutomataGrid';
 import {
     groupAndRemoveDuplicatesOfNestedPixelArray,
@@ -35,7 +35,7 @@ type PixelStore = {
     clearPixelsActive: () => void;
 };
 
-export const usePixelStore = create<PixelStore>((set, get) => ({
+export const pixelStoreInitialStates = {
     pixelsActive: [],
     pixelStyles: {
         inactiveColor: 'red',
@@ -43,6 +43,10 @@ export const usePixelStore = create<PixelStore>((set, get) => ({
         width: 50,
         height: 50,
     },
+}
+
+export const usePixelStore = create<PixelStore>((set, get) => ({
+   ...pixelStoreInitialStates,
     setPixelStyles: (states: PixelStyles) =>
         set((state) => ({ pixelStyles: { ...state.pixelStyles, ...states } })),
     pixelIsActive: (x, y) => {

@@ -1,0 +1,1 @@
+export type CommaSeperatedSize = `${number},${number}`;

@@ -8,7 +8,10 @@ interface GridRowProps {
 
 export function GridRow({ size, yValue }: GridRowProps) {
     return (
-        <div className="grid-row">
+        <div style={{
+            display: "flex",
+            flexDirection: "row"
+        }}>
             {[...Array(size.xWidth)].map((_, xValue) => (
                 <Pixel
                     yValue={yValue}
