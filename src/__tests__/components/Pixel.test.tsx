@@ -29,7 +29,7 @@ describe('Pixel Component - Unit', () => {
             });
     
             getByTestId('pixel-x1-y1');
-            expect(container.firstChild).toHaveAttribute('class', 'grid-element grid-element-alive');
+            expect(container.firstChild).toHaveAttribute('class', 'automata-grid-element automata-grid-element-alive');
             expect(container.firstChild).toHaveStyle({
                 backgroundColor: 'green'
             })
@@ -47,7 +47,7 @@ describe('Pixel Component - Unit', () => {
     
             getByTestId('pixel-x1-y1');
             expect(container.firstChild)
-                .toHaveAttribute('class', 'grid-element');
+                .toHaveAttribute('class', 'automata-grid-element');
             expect(container.firstChild).toHaveStyle({
                 backgroundColor: 'red'
             })

@@ -2,7 +2,6 @@ import typescript from 'rollup-plugin-typescript2';
 import commonjs from 'rollup-plugin-commonjs';
 import external from 'rollup-plugin-peer-deps-external';
 import resolve from 'rollup-plugin-node-resolve';
-import sass from 'rollup-plugin-sass';
 
 import pkg from './package.json';
 
@@ -24,9 +23,6 @@ export default {
     ],
     plugins: [
         external(),
-        sass({
-            insert: true,
-        }),
         resolve(),
         typescript({
             tsconfig: 'tsconfig.prod.json',

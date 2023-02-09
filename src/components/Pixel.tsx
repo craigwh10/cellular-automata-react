@@ -12,7 +12,7 @@ export function Pixel({ xValue, yValue }: PixelProps) {
     );
     const pixelStyles = usePixelStore((state) => state.pixelStyles);
 
-    const className = `grid-element${isAlive ? " grid-element-alive" : ''}`
+    const className = `automata-grid-element${isAlive ? " automata-grid-element-alive" : ''}`
 
     const { activeColor, inactiveColor } = pixelStyles;
 

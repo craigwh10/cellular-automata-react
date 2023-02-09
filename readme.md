@@ -2,7 +2,7 @@
 
 This is the result of a walkthrough I wrote on <http://craigwh.it/posts/conways-game-of-life-in-react>.
 
-Cellular automata is a computational study of looking at the behaviour of "things" within a grid in which you set simple rules for how "things" behave/interact given some initial positions, which can lead make some interesting and complex behaviour, Conway's game of life is an example that is turing complete.
+Cellular Automata is a computational study of looking at the behavior of "things" within a grid in which you set simple rules for how "things" behave/interact given some initial positions, which can lead make some interesting and complex behavior, Conway's game of life is an example that is Turing complete.
 
 This package provides an `<AutomataGrid />` component from which you can:
 
@@ -12,9 +12,9 @@ This package provides an `<AutomataGrid />` component from which you can:
 -   Set the rules of how the pixels will behave.
 -   Set the style of the pixels or grid within.
 
-## Example: Conway's game of life with a randomised pixel soup
+## Example: Conway's game of life with a randomized pixel soup
 
-Example: Random Soup - Generates a N randomised pixel distribution.
+Example: Random Soup - Generates a N randomized pixel distribution.
 
 ```tsx
 import './App.css';
@@ -74,7 +74,7 @@ Then use the data params to apply the setters to either kill or create more pixe
 
 You can use either the predefined utilities within the package or pass a callback and make your own rules, if they're interesting let me know and I'll add them to the presets :)
 
-Example rule callback: No idea what it does just made it up.
+Example rule callback: I have no idea what it does just made it up.
 
 ```tsx
 import './App.css';
@@ -113,7 +113,7 @@ export default App;
 
 In 1.0.8 you can now pass down a `className`, it adds the className to the grid wrapper, so you can style from parent downwards.
 
-1.0.9 allows you to set any css-in-js pixel styles for the pixel through passing in a appropriate style object such as the below:
+1.0.9 allows you to set any css-in-js pixel styles for the pixel by passing in an appropriate style object such as the below:
 
 ```tsx
 <AutomataGrid
@@ -217,8 +217,8 @@ export const conwaysGameOfLifePreset = (
 ## Opportunities
 
 -   Variants: <https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/gameOfLife2.html>.
--   Patterns to generate interesting behaviour: <https://conwaylife.com/wiki/>
--   Every method used to create the Conway's example is available within the package for ease of creation of rulesets, if you create any just open a PR.
+-   Patterns to generate interesting behavior: https://conwaylife.com/wiki/>
+-   Every method used to create Conway's example is available within the package for ease of creation of rulesets, if you create any just open a PR.
 
 ---
 
@@ -226,21 +226,13 @@ https://www.npmjs.com/package/cellular-automata-react
 
 ## Planned
 
--   [x] Customisable theme for grid. (1.0.8).
--   [x] Customisable pixels. (1.0.9).
--   [x] Set up rule presets within examples that are reusable and easy to contribute to. (1.1.0)
--   [x] Reduce number of rerenders and race conditions within algorithm [1.1.3]
--   [x] Npm optimisation [1.1.7]
--   [x] Improved style handling [1.1.9]
--   [x] Allowed for uneven grid sizes [1.2.1]
--   [x] Fixed zustand store not resetting on unmount [1.2.3] (STABLE)
--   [ ] Improve coverage for package [1.2.4]
--   [ ] Add benchmarks for CAR. [1.2.5]
--   [ ] Optimise CAR. [1.2.6]
--   [ ] Settable pixel properties [1.2.7]
+-   [ ] GHP Documentation
+-   [ ] Add benchmarks for CAR.
+-   [ ] Optimise CAR.
+-   [ ] Settable pixel properties
 
 ## Contribute
 
-Feel free to open PR's for presets or suggestions and I'll happily look over them.
+Feel free to open pull requests for presets or suggestions and I'll happily look over them.
 
 Also if you make anything cool with this let me know and I'll feature it here.
