@@ -1,13 +1,29 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { Grid } from '../components/Grid';
 import { Pixel, PixelStyles, usePixelStore } from '../store/usePixelStore';
+import { useIsomorphicLayoutEffect } from '../utils/useIsomorphicEffect';
 
 export interface AutomataGridSizeProp {
+    /**
+     * The number of pixels in horizontal direction in grid.
+     */
     xWidth: number;
+    /**
+     * The number of pixels in vertical direction in grid.
+     */
     yWidth: number;
 }
 
 interface AutomataGridProps {
+    /**
+     * A callback which gets called on each item in the grid.
+     * @example
+     * import { AutomataGrid, conwaysGameOfLifePreset } from 'cellular-automata-react'
+     * 
+     * <AutomataGrid
+     *   rules={conwaysGameOfLifePreset}
+     * />
+     */
     rules: (
         /**
          * All pixels that will be iterated on [x,y].
@@ -31,6 +47,7 @@ interface AutomataGridProps {
         removeActivePixels: (pixel: Array<Pixel>) => void
     ) => void;     
     /**
+     * Array of 2x1 coordinates which determines your initial state for the grid.
      * @example
      * <AutomataGrid
      *    pixelsActive={[[1,1]]}
@@ -38,6 +55,7 @@ interface AutomataGridProps {
      */
     pixelsActive: Array<[number, number]>;
     /**
+     * Determines the size of the pixel grid.
      * @example
      * <AutomataGrid
      *   size={{
@@ -47,9 +65,16 @@ interface AutomataGridProps {
      * />
      */
     size: AutomataGridSizeProp;
+    /**
+     * Decides the cycle time to run your program (defaults to 1000ms/1second).
+     * @example
+     * <AutomataGrid
+     *   iterationTimeInMs={1000}
+     * />
+     */
     iterationTimeInMs: number;
     /**
-     * Can help to create specific stylings for grid.
+     * Can help to create specific stylings for grid (optional).
      * @example
      * <AutomataGrid
      *   className="my-grid"
@@ -61,7 +86,7 @@ interface AutomataGridProps {
      */
     className?: string;
     /**
-     * Can help to create specific stylings for grid.
+     * Can help to create specific stylings for pixels on grid (optional).
      * @example
      * <AutomataGrid
      *   pixelStyles={{
@@ -77,7 +102,7 @@ export function AutomataGrid({
     rules,
     pixelsActive,
     size,
-    iterationTimeInMs,
+    iterationTimeInMs = 1000,
     className,
     pixelStyles,
 }: AutomataGridProps) {
@@ -96,7 +121,7 @@ export function AutomataGrid({
         return () => clearPixelsActive();
     }, []);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         let timer: ReturnType<typeof setInterval>;
 
         setTimeout(() => {
@@ -109,11 +134,11 @@ export function AutomataGrid({
     }, []);
 
     if (size.xWidth <= 0 && size.yWidth) {
-        return <p>Error: Provide a size greater than 0.</p>;
+        return <p>Automata Grid Error: Provide a size greater than 0.</p>;
     }
 
     if (iterationTimeInMs <= 0 || iterationTimeInMs < 200) {
-        return <p>Error: Iteration time too low, try greater than 200ms.</p>;
+        return <p>Automata Grid Error: Iteration time too low, try greater than 200ms.</p>;
     }
 
     return <Grid size={size} className={className} />;

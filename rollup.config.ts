@@ -29,8 +29,7 @@ export default {
         }),
         resolve(),
         typescript({
-            rollupCommonJSResolveHack: true,
-            exclude: '**/__tests__/**',
+            tsconfig: 'tsconfig.prod.json',
             clean: true,
         }),
         commonjs({

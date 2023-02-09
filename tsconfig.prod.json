@@ -17,8 +17,12 @@
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
         "allowSyntheticDefaultImports": true,
-        "downlevelIteration": true
+        "downlevelIteration": true,
     },
-    "include": ["src"],
-    "exclude": ["node_modules", "lib", "example", "example-ssr"]
+    "include": [
+        "src",
+    ],
+    "exclude": [
+        "src/__tests__/**/*.tsx", "src/__tests__/**/*.ts"
+    ]
 }

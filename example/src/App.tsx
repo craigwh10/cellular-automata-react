@@ -10,6 +10,7 @@ function App() {
           xWidth: 4,
           yWidth: 4
         }}
+        className='a'
         pixelsActive={[[1,1]]}
         iterationTimeInMs={1000}
       />
