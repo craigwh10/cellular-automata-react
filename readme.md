@@ -2,11 +2,9 @@
 
 This is the result of a walkthrough I wrote on <http://craigwh.it/posts/conways-game-of-life-in-react>.
 
-**Prerequisites:**
+## Prerequisites
 
 - React (v18 onwards)
-
----
 
 ## Installation
 
@@ -28,8 +26,6 @@ npm i cellular-automata-react
 ```sh
 yarn add cellular-automata-react
 ```
-
----
 
 ## What is Cellular Automata?
 
@@ -263,9 +259,7 @@ export const conwaysGameOfLifePreset = (
 - Every method used to create Conway's example is available within the package for ease of creation of rulesets, if you create any just open a PR.
 - My logo on [craigwh.it](http://craigwh.it)
 
----
-
-### FAQs
+## FAQs
 
 - Does this support SSR?
   - Yes this has been tested on SSR/CSR & SSG
