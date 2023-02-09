@@ -10,7 +10,6 @@
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint": "./node_modules/.bin/eslint .",
-    "pre:build": "npm i –production",
     "release": "standard-version",
     "t:u": "jest ./src/__tests__ --coverage"
   },
