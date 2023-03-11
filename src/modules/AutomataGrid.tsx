@@ -104,18 +104,19 @@ export function AutomataGrid({
     size,
     iterationTimeInMs = 1000,
     className,
-    pixelStyles,
+    pixelStyles = {
+        activeColor: 'green',
+        inactiveColor: 'red',
+        width: 50,
+        height: 50,
+    },
 }: AutomataGridProps) {
     const setPixelsActive = usePixelStore((state) => state.setPixelsActive);
     const checkRulesForActive = usePixelStore((state) => state.checkRulesForActive);
-    const setPixelStyles = usePixelStore((state) => state.setPixelStyles);
     const clearPixelsActive = usePixelStore((state) => state.clearPixelsActive);
 
     useEffect(() => {
         setPixelsActive(pixelsActive);
-        if (pixelStyles) {
-            setPixelStyles(pixelStyles);
-        }
         return () => clearPixelsActive();
     }, []);
 
@@ -139,5 +140,5 @@ export function AutomataGrid({
         return <p>Automata Grid Error: Iteration time too low, try greater than 200ms.</p>;
     }
 
-    return <Grid size={size} className={className} />;
+    return <Grid size={size} className={className} pixelStyles={pixelStyles} />;
 }

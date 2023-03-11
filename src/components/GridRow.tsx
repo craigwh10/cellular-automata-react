@@ -1,12 +1,14 @@
 import { AutomataGridSizeProp } from '../modules/AutomataGrid';
+import { PixelStyles } from '../store/usePixelStore';
 import { Pixel } from './Pixel';
 
 interface GridRowProps {
     size: AutomataGridSizeProp;
     yValue: number;
+    pixelStyles: PixelStyles;
 }
 
-export function GridRow({ size, yValue }: GridRowProps) {
+export function GridRow({ size, yValue, pixelStyles }: GridRowProps) {
     return (
         <div style={{
             display: "flex",
@@ -17,6 +19,7 @@ export function GridRow({ size, yValue }: GridRowProps) {
                     yValue={yValue}
                     xValue={xValue}
                     key={`${size}-${xValue}-${yValue}`}
+                    pixelStyles={pixelStyles}
                 />
             ))}
         </div>

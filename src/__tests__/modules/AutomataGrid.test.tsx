@@ -25,7 +25,6 @@ describe('AutomataGrid - Unit', () => {
     const usePixelStoreMocks = {
         mockSetPixelsActive: jest.fn(),
         mockCheckRulesForActive: jest.fn(),
-        mockSetPixelStyles: jest.fn(),
         mockClearPixelsActive: jest.fn(),
     }
     beforeEach(() => {
@@ -63,12 +62,6 @@ describe('AutomataGrid - Unit', () => {
             renderResult.getByTestId(generateGridTestId('2,2'));
     
             expect(usePixelStoreMocks.mockSetPixelsActive).toBeCalledWith(pixelsActive);
-        })
-
-        it('should add styles where it exists', () => {
-            renderResult.getByTestId(generateGridTestId('2,2'));
-    
-            expect(usePixelStoreMocks.mockSetPixelStyles).toBeCalledWith(pixelStyle);
         })
 
         it('should not run an iteration of timer after 0s', () => {
