@@ -1,20 +1,20 @@
 // components/Pixel/index.tsx
-import { usePixelStore } from '../store/usePixelStore';
+import { PixelStyles, usePixelStore } from '../store/usePixelStore';
 
 interface PixelProps {
     xValue: number;
     yValue: number;
+    pixelStyles: PixelStyles;
 }
 
-export function Pixel({ xValue, yValue }: PixelProps) {
+export function Pixel({ xValue, yValue, pixelStyles }: PixelProps) {
     const isAlive = usePixelStore((state) =>
         state.pixelIsActive(xValue, yValue)
     );
-    const pixelStyles = usePixelStore((state) => state.pixelStyles);
 
     const className = `automata-grid-element${isAlive ? " automata-grid-element-alive" : ''}`
 
-    const { activeColor, inactiveColor } = pixelStyles;
+    const { activeColor = 'green', inactiveColor = 'red' } = pixelStyles;
 
     return (
         <div

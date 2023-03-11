@@ -13,7 +13,6 @@ describe('usePixelStore - Unit', () => {
 
             expect(initialState).toMatchObject({
                     ...pixelStoreInitialStates,
-                    setPixelStyles: expect.any(Function),
                     pixelIsActive: expect.any(Function),
                     setPixelsActive: expect.any(Function),
                     removeActivePixels: expect.any(Function),
@@ -21,20 +20,6 @@ describe('usePixelStore - Unit', () => {
                     clearPixelsActive: expect.any(Function),
             });  
         })
-        it('setPixelStyles should modify pixelStyle state', () => {
-            const state = usePixelStore.getState();
-
-            state.setPixelStyles({
-                width: 51
-            });
-
-            expect(usePixelStore.getState().pixelStyles).toMatchObject(
-                {
-                        ...pixelStoreInitialStates.pixelStyles,
-                        width: 51,
-                }
-            )
-        });
 
         it('should successfully check a previously made active pixel as active', () => {
             const state = usePixelStore.getState();

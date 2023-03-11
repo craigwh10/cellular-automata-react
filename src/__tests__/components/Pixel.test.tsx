@@ -6,14 +6,14 @@ import { usePixelStore } from "../../store/usePixelStore";
 jest.mock('../../store/usePixelStore');
 const mockUsePixelStore = jest.mocked(usePixelStore);
 
-const renderPixel = ({alive, styles}: {alive: boolean, styles: Object}) => {
+const renderPixel = ({alive}: {alive: boolean}) => {
     mockUsePixelStore
     .mockReturnValueOnce(alive)
-    .mockReturnValueOnce({
-        ...styles
-    })
 
-    return render(<Pixel xValue={1} yValue={1} />)
+    return render(<Pixel xValue={1} yValue={1} pixelStyles={{
+        activeColor: 'green',
+        inactiveColor: 'red'
+    }} />)
 }
 
 describe('Pixel Component - Unit', () => {
@@ -22,10 +22,6 @@ describe('Pixel Component - Unit', () => {
         it('should give alive classname and be green', () => {
             const { getByTestId, container } = renderPixel({
                 alive: true,
-                styles: {
-                    activeColor: 'green',
-                    inactiveColor: 'red'
-                }
             });
     
             getByTestId('pixel-x1-y1');
@@ -39,10 +35,6 @@ describe('Pixel Component - Unit', () => {
         it('should give default classname and be red', () => {
             const { getByTestId, container } = renderPixel({
                 alive: false,
-                styles: {
-                    activeColor: 'green',
-                    inactiveColor: 'red'
-                }
             });
     
             getByTestId('pixel-x1-y1');

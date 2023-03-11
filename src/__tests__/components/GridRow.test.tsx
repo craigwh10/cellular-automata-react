@@ -10,24 +10,28 @@ jest.mock('../../components/Pixel', () => ({
     }
 }));
 
+const mockStyles = {
+    width: 50,
+    height: 50,
+}
 describe('GridRow - Unit', () => {
     it('should render no pixel if x width size is 0', () => {
         const { queryByTestId } = render(
-            <GridRow size={{xWidth: 0, yWidth: 1}} yValue={1 }/>
+            <GridRow size={{xWidth: 0, yWidth: 1}} yValue={1} pixelStyles={mockStyles} />
         )
 
         expect(queryByTestId(pixelAtPosition(0, 1))).toBeNull();
     })
     it('should render 1 pixel with x value 0 if x width is 1', () => {
         const { getByTestId } = render(
-            <GridRow size={{xWidth: 1, yWidth: 1}} yValue={1}/>
+            <GridRow size={{xWidth: 1, yWidth: 1}} yValue={1} pixelStyles={mockStyles} />
         )
 
         getByTestId(pixelAtPosition(0, 1));
     })
     it('should render 2 pixels with x values 0 and 1 if x width size is 2', () => {
         const { getByTestId } = render(
-            <GridRow size={{xWidth: 2, yWidth: 1}} yValue={1 }/>
+            <GridRow size={{xWidth: 2, yWidth: 1}} yValue={1} pixelStyles={mockStyles} />
         )
 
         getByTestId(pixelAtPosition(0, 1));

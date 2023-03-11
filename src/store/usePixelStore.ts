@@ -17,9 +17,7 @@ export type PixelStyles = Omit<
 
 type PixelStore = {
     pixelsActive: Array<Pixel>;
-    pixelStyles: PixelStyles;
     pixelIsActive: (x: number, y: number) => boolean;
-    setPixelStyles: (pixelStyles: PixelStyles) => void;
     setPixelsActive: (pixelsActive: Array<Pixel>) => void;
     removeActivePixels: (pixel: Array<Pixel>) => void;
     checkRulesForActive: (
@@ -37,18 +35,10 @@ type PixelStore = {
 
 export const pixelStoreInitialStates = {
     pixelsActive: [],
-    pixelStyles: {
-        inactiveColor: 'red',
-        activeColor: 'green',
-        width: 50,
-        height: 50,
-    },
 }
 
 export const usePixelStore = create<PixelStore>((set, get) => ({
    ...pixelStoreInitialStates,
-    setPixelStyles: (states: PixelStyles) =>
-        set((state) => ({ pixelStyles: { ...state.pixelStyles, ...states } })),
     pixelIsActive: (x, y) => {
         const pixels = get().pixelsActive;
         return pixels.some((pixel) => JSON.stringify(pixel) === `[${x},${y}]`);

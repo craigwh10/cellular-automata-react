@@ -12,11 +12,15 @@ jest.mock('../../components/GridRow', () => ({
     }
 }));
 
+const mockStyles = {
+    width: 50,
+    height: 50,
+}
 describe('Grid - Unit', () => {
     it('should render no row if y width size is 0', () => {
         const size = generateGridSizeProp(0,0);
         const { queryByTestId } = render(
-            <Grid size={size} />
+            <Grid size={size} pixelStyles={mockStyles} />
         )
 
         expect(queryByTestId(rowAtYPositionAndSize(0, '0,1'))).toBeNull();
@@ -24,7 +28,7 @@ describe('Grid - Unit', () => {
     it('should render 1 row with x value 0 if x width is 1', () => {
         const size = generateGridSizeProp(1,1);
         const { getByTestId } = render(
-            <Grid size={size} />
+            <Grid size={size} pixelStyles={mockStyles} />
         )
 
         getByTestId(rowAtYPositionAndSize(0, '1,1'));
@@ -32,7 +36,7 @@ describe('Grid - Unit', () => {
     it('should render 2 rows with x values 0 and 1 if x width size is 2', () => {
         const size = generateGridSizeProp(2,2);
         const { getByTestId } = render(
-            <Grid size={size} />
+            <Grid size={size} pixelStyles={mockStyles} />
         )
 
         getByTestId(rowAtYPositionAndSize(0, '2,2'));
