@@ -107,8 +107,6 @@ export function AutomataGrid({
     pixelStyles = {
         activeColor: 'green',
         inactiveColor: 'red',
-        width: 50,
-        height: 50,
     },
 }: AutomataGridProps) {
     const setPixelsActive = usePixelStore((state) => state.setPixelsActive);
@@ -123,13 +121,16 @@ export function AutomataGrid({
     useIsomorphicLayoutEffect(() => {
         let timer: ReturnType<typeof setInterval>;
 
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             timer = setInterval(() => {
                 checkRulesForActive(rules, size);
             }, iterationTimeInMs);
         }, iterationTimeInMs);
 
-        return () => clearInterval(timer);
+        return () => {
+            clearTimeout(timeout);
+            clearInterval(timer);
+        }
     }, []);
 
     if (size.xWidth <= 0 && size.yWidth <= 0) {
