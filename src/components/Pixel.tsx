@@ -22,6 +22,8 @@ export function Pixel({ xValue, yValue, pixelStyles }: PixelProps) {
             className={className}
             style={{
                 backgroundColor: isAlive ? activeColor : inactiveColor,
+                width: 10,
+                height: 10,
                 ...pixelStyles,
             }}
         />
