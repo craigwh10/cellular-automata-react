@@ -1,20 +1,57 @@
-## What is this?
+# cellular-automata-react
 
 This is the result of a walkthrough I wrote on <http://craigwh.it/posts/conways-game-of-life-in-react>.
 
-Cellular Automata is a computational study of looking at the behavior of "things" within a grid in which you set simple rules for how "things" behave/interact given some initial positions, which can lead make some interesting and complex behavior, Conway's game of life is an example that is Turing complete.
+## Prerequisites
+
+- React (v18 onwards)
+
+## Installation
+
+Once installed you can import this module into your React components and get using it quickly.
+
+For some implementation examples see:
+
+- [NextJS](example-ssr/src/pages/index.tsx)
+- [Create-React-App](example/src/App.tsx)
+
+### NPM
+
+```sh
+npm i cellular-automata-react
+```
+
+### Yarn
+
+```sh
+yarn add cellular-automata-react
+```
+
+## What is Cellular Automata?
+
+> A cellular automaton is a collection of "colored" cells on a grid of specified shape that evolves through a number of discrete time steps according to a set of rules based on the states of neighboring cells. The rules are then applied iteratively for as many time steps as desired.
+
+**[Reference: Wolfram Mathworld](https://mathworld.wolfram.com/CellularAutomaton.html)**
+
+## What can I do?
+
+- Run fun experiments by writing javascript using the API provided.
+  - [API file (.ts)](https://github.com/craigwh10/cellular-automata-react/blob/master/src/rules/utils.ts)
+- Make interesting "living" graphics on your website.
+  - Check out [my site](https://craigwh.it/).
+- Run the Conways preset and play around with the initial conditions.
 
 This package provides an `<AutomataGrid />` component from which you can:
 
--   Set the initial pixels via coordinates.
--   Set how fast the iterations happen.
--   Set the size of the grid.
--   Set the rules of how the pixels will behave.
--   Set the style of the pixels or grid within.
+- Set the initial pixels via coordinates.
+- Set how fast the iterations happen.
+- Set the size of the grid.
+- Set the rules of how the pixels will behave.
+- Set the style of the pixels or grid within.
 
 ## Example: Conway's game of life with a randomized pixel soup
 
-Example: Random Soup - Generates a N randomized pixel distribution.
+**Example: Random Soup - Generates an N randomized pixel distribution.**
 
 ```tsx
 import './App.css';
@@ -63,7 +100,8 @@ type RuleCallback = (
     size: number,
     // Setter for the next iteration state of the board.
     setPixelsActive: (pixelsActive: Array<Pixel>) => void,
-    // Removing a group of pixels from state by passing in an array of coordinates.
+    // Removing a group of pixels from state by
+    // passing in an array of coordinates.
     removeActivePixels: (pixel: Array<Pixel>) => void
 ) => void;
 ```
@@ -74,7 +112,7 @@ Then use the data params to apply the setters to either kill or create more pixe
 
 You can use either the predefined utilities within the package or pass a callback and make your own rules, if they're interesting let me know and I'll add them to the presets :)
 
-Example rule callback: I have no idea what it does just made it up.
+**Example: Random activity rule callback**
 
 ```tsx
 import './App.css';
@@ -214,25 +252,22 @@ export const conwaysGameOfLifePreset = (
 };
 ```
 
-## Opportunities
+## Opportunities/Inspiration
 
--   Variants: <https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/gameOfLife2.html>.
--   Patterns to generate interesting behavior: https://conwaylife.com/wiki/>
--   Every method used to create Conway's example is available within the package for ease of creation of rulesets, if you create any just open a PR.
+- Variants: <https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/gameOfLife2.html>.
+- Patterns to generate interesting behavior: <https://conwaylife.com/wiki/>
+- Every method used to create Conway's example is available within the package for ease of creation of rulesets, if you create any just open a PR.
+- My logo on [craigwh.it](http://craigwh.it)
 
----
+## FAQs
 
-https://www.npmjs.com/package/cellular-automata-react
-
-## Planned
-
--   [ ] GHP Documentation
--   [ ] Add benchmarks for CAR.
--   [ ] Optimise CAR.
--   [ ] Settable pixel properties
+- Does this support SSR?
+  - Yes this has been tested on SSR/CSR & SSG
 
 ## Contribute
 
 Feel free to open pull requests for presets or suggestions and I'll happily look over them.
 
 Also if you make anything cool with this let me know and I'll feature it here.
+
+<https://www.npmjs.com/package/cellular-automata-react>
